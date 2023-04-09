@@ -1,0 +1,17 @@
+* { 
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+section{
+    height: 100vh;
+}
+
+#section-one{
+    background-color: yellow;
+}
+
+#section-two{
+    background-color: pink;
+}

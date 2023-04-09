@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %} Web App Name {% endblock %}
+
+{% block head %}{% endblock %}
+
+
+{% block body %}
+
+<h1>{{name}}'s Workspace</h1>
+
+<a href="/" name="logout">Log Out</a>
+
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    <div class="col">
+        <div class="card " style="width: 20rem;">
+            <img src="..." class="card-img-top" style="height: 15rem;" alt="...">
+            <div class="card-body">
+            <!-- <h5 class="card-title"></h5> -->
+            <a href="/costumizer" class="btn btn-primary">Create a Deck</a> <!--Send user to deck costumizer/creator-->
+            </div>
+        </div>
+    {% for deck in decks %}
+        <div class="card " style="width: 20rem;">
+            <img src="..." class="card-img-top" style="height: 15rem;" alt="...">
+            <div class="card-body">
+            <h5 class="card-title">{{ deck.deck_name }}</h5>
+            <a href="#" class="btn btn-primary">Practice</a> <!--Send user to study session route-->
+            <a href="/costumizer" class="btn btn-success">Modify</a> <!--Send user to deck costumizer/creator-->
+            <a href="/costumizer" class="btn btn-danger">Delete</a> <!--Shows pop-up warning and loads page in lace with AJAX-->
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
+    
+{% block after_body %}{% endblock %}
