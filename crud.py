@@ -89,11 +89,23 @@ def get_all_flashcards():
 
     return Flashcard.query.all()
 
+def get_flashcard_by_id(flashcard_id):
+    """Return flashcard by id."""
+
+    return Flashcard.query.get(flashcard_id)
+
 
 def get_flashcards_by_deck(deck_id):
     """Return flashcards by deck."""
 
     return Flashcard.query.filter(Flashcard.deck_id == deck_id).all()
+
+
+def remove_flashcard_by_id(flashcard_id):
+    """Remove flashcard by id""" 
+
+    Flashcard.query.filter(Flashcard.flashcard_id == flashcard_id).delete()
+    db.session.commit()
 
 
 def remove_flashcards_by_deck(deck_id):

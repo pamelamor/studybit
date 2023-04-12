@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %} Design Space {% endblock %}
+
+{% block head %}{% endblock %}
+
+
+{% block body %}
+
+<h1>{{ deck.deck_name }} Deck Design Space</h1>
+
+<div class="container-fluid">
+
+    <!-- <div class="row">   
+        <form name="deck-design" action="/update-deck/{{ deck.deck_id }}" method="PUT">
+            Deck name: <input type="text" placeholder={{deck.deck_name}} name="deck_name" required><br>
+            Image: <input type="file"><br>
+            Font: <input type="text"><br>
+            Font color: <input type="color"><br>
+            <button type="submit" id="update-deck-info"> Update</button>
+        </form>
+    </div>  -->
+
+
+    <div class="row">  
+        <div class="col">
+            {% for flashcard in flashcards %}
+                <h4>{{ flashcard.front_content }}</h4>
+                <button type="button" class="flashdeleteButton btn btn-danger" id="{{ flashcard.flashcard_id }}">Delete</button>
+            {% endfor %}
+        </div>
+    </div>
+
+
+    <!-- <div class="row">  
+        <form name="new-card" action="#">
+            Front: <input type="text" placeholder="front"><br>
+            Back: <input type="text" placeholder="back"><br>
+            Image: <input type="file"><br>
+            <button type="submit">Add new flashcard</button>
+        </form>
+    </div> -->
+
+</div>
+
+{% endblock %}
+    
+{% block after_body %}{% endblock %}

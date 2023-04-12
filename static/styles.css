@@ -4,8 +4,11 @@
     box-sizing: border-box;
 }
 
-section{
+.section{
+    display: flex;
     height: 100vh;
+    justify-content: center;
+    align-items: center;
 }
 
 #section-one{
@@ -14,4 +17,8 @@ section{
 
 #section-two{
     background-color: pink;
+}
+
+img{
+    background-color: gray;
 }
