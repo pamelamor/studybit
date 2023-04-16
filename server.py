@@ -145,15 +145,38 @@ def delete_deck(deck_id):
 
 
 ###################################################### DESIGN SPACE ROUTES
-@app.route('/create-flashcard/<deck_id>', methods=['POST'])
-def create_flashcard(deck_id):
-    """Create flashcard for deck through an AJAX requests."""
+@app.route('/edit-deck/<deck_id>', methods=['GET','POST'])
+def edit_deck(deck_id):
+    """View/Edit deck in design space."""
 
-    front = request.form.get('front')
-    back = request.form.get('back')
-    # crud.create_flashcard(deck_id, front, back)
+    if request.method == 'GET':
+        deck = crud.get_deck_by_id(deck_id)
+        flashcards = crud.get_flashcards_by_deck(deck_id)
+        session['deck_id'] = deck.deck_id
 
-    return 'success!'
+        return render_template('customizer.html', flashcards=flashcards, deck=deck)
+
+#BLOCK#2: Create a flashcard asynchrounously with AJAX.
+# @app.route('/create-flashcard', methods=['POST'])
+# def create_flashcard():
+#     """Create flashcard for deck through an AJAX requests."""
+
+#     front = request.json.get('front_content')
+#     back = request.json.get('back_content')
+#     flashcard = crud.create_flashcard(session['deck_id'], front, back)
+
+#     return {'flashcard_id': flashcard.flashcard_id, 'front_content': flashcard.front_content}
+
+
+@app.route('/create-flashcard', methods=['POST'])
+def create_flashcard():
+    """Create deck in design space."""
+
+    front = request.form.get('front_content')
+    back = request.form.get('back_content')
+    crud.create_flashcard(session['deck_id'], front, back)
+
+    return redirect(f'/edit-deck/{session["deck_id"]}')
 
 
 @app.route("/delete-flashcard/<flashcard_id>", methods=['DELETE'])
@@ -169,26 +192,6 @@ def delete_flashcard(flashcard_id):
     elif crud.get_flashcard_by_id(flashcard_id) != None:
 
         return 'ERROR: Unsuccessful deletion.'
-
-
-@app.route('/edit-deck/<deck_id>', methods=['GET','POST'])
-def edit_deck(deck_id):
-    """View/Edit deck in design space."""
-
-    if request.method == 'GET':
-        deck = crud.get_deck_by_id(deck_id)
-        flashcards = crud.get_flashcards_by_deck(deck_id)
-
-        return render_template('customizer.html', flashcards=flashcards, deck=deck)
-    
-    # # You can turn this into an AJAX POST request that way the reload doesnt happen
-    # elif request.method == 'POST':
-
-    #     deck_name = request.form.get('deck_name')
-    #     crud.update_deck_by_id(deck_id, deck_name)
-        
-
-    #     return redirect(f'/edit-deck/{deck_id}')
 
 
 if __name__ == "__main__":

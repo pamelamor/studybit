@@ -57,11 +57,12 @@
             </div>
 
             <div class="row" id="flashcard-form" style="background-color: lightgreen;">  
-                <form action="/create-flashcard/{{ deck.deck_id }}" method="POST">
+                <form id="create-flashcard" action="/create-flashcard" method="POST">
                     Front: <input type="text" placeholder="front" id="front" name='front_content' required><br>
                     Back: <input type="text" placeholder="back" id="back" name='back_content' required><br>
-                    <!-- Image: <input type="file"><br> -->
-                    <button id="{{deck.deck_id}}" type="submit">Add new flashcard</button>
+                    Image: <input type="file"><br>
+                    <!-- BLOCK#2: <button id="{{deck.deck_id}}" type="submit">Add new flashcard</button> -->
+                    <button id="{{deck.deck_id}}" class="btn btn-primary" type="submit">Add new flashcard</button>
                 </form>
             </div>
 
@@ -69,7 +70,7 @@
 
         <ul class="col-4 list-group" id="flashcard-section" style="background-color: pink;">
             {% for flashcard in flashcards %}
-            <li class="list-group-item" id="flashcard-{{ flashcard.flashcard_id }}" >
+            <li class="list-group-item" id="flashcard-{{ flashcard.flashcard_id }}" style="display: block;" >
                 <h4>{{ flashcard.front_content }}</h4>
                 <button type="button" class="delete-flashcard btn btn-danger" id="{{ flashcard.flashcard_id }}">Delete</button>
                 <button type="button" class="btn btn-success">Edit</button>

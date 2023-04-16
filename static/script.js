@@ -5,9 +5,13 @@
 //implemented, this request hopefully also allows you to delete decks asynchrounously. So far, when you 
 //create an async deck with the request below, it seems like "the way in which the deck is created"
 //interferes with you deleting the new deck asynchrounously as well. What's supposed to be an async deletion 
-//takes effect after you reload the page, which, if you think about it, defeats the purpose of AJAX.
+//takes effect after you reload the page, which, if you think about it, defeats the purpose of AJAX. -------> I figured it out!
 
-// const createDeck = document.getElementById('create-deck');
+//The reason why the above happens is because when we create a new deck or flashcard, and try to delete it, the process of adding an
+//eventListenier to the button never happens, this process only occurs when we navigate to /edit-deck/<deck_id>. We will try to solve this
+//moving forward.
+
+// const createDeck = document.getElementById('create-deck'); ---> try to make this POST request like we did for the flashcard
 // if(createDeck){
 //     createDeck.addEventListener('click', (evt) => {
 //         evt.preventDefault()
@@ -30,60 +34,65 @@
 //     });//Try to see if there's a better way to do this without passing explicit HTML
 // }
 
-//Delete deck from user workspace
-const deleteDecks = document.querySelectorAll('button.delete-deck');
+// //Delete deck from user workspace
+// const deleteDecks = document.querySelectorAll('button.delete-deck');
 
-for (const deck of deleteDecks) {
-    deck.addEventListener('click', (evt) => {
+// for (const deck of deleteDecks) {
+//     deck.addEventListener('click', (evt) => {
 
-        evt.preventDefault()
+//         evt.preventDefault()
 
-        const deck_id = evt.target.id;
-        const url = `/delete-deck/${deck_id}`;
+//         const deck_id = evt.target.id;
+//         const url = `/delete-deck/${deck_id}`;
 
-        fetch(url, {
-            method: 'DELETE',
-            headers: {'Content-Type' : 'application/json',},
-        })
-            .then((response) => response.text())
-            .then((responseData) => {
-                if(responseData == 'Successful deletion!'){
-                    console.log(responseData);
-                    const deck = document.getElementById(`deck-${deck_id}`);
-                    deck.style.display = 'none';
-                }
-            });
-    });
-};
+//         fetch(url, {
+//             method: 'DELETE',
+//             headers: {'Content-Type' : 'application/json',},
+//         })
+//             .then((response) => response.text())
+//             .then((responseData) => {
+//                 if(responseData == 'Successful deletion!'){
+//                     console.log(responseData);
+//                     const deck = document.getElementById(`deck-${deck_id}`);
+//                     deck.style.display = 'none';
+//                 }
+//             });
+//     });
+// };
 
 
 //######################################################################### Flashcard requests
 //Add new flashcard to deck in design space
-const createFlashcard = document.getElementById('create-flashcard');
+// const createFlashcard = document.getElementById('create-flashcard');
 
-if(createFlashcard){
-    createFlashcard.addEventListener('submit', (evt) =>{
+// if(createFlashcard){
+//     createFlashcard.addEventListener('submit', (evt) =>{
 
-        evt.preventDefault();
+//         evt.preventDefault();
 
-        const deck_id = evt.target.id;
-        const url = `/create-flashcard/${deck_id}`
-        const formInputs ={
-            front_content: document.getElementById("front").value,
-            back_content: document.getElementById("back").value,
-        };
+//         const formInputs = {
+//             front_content: document.getElementById("front").value,
+//             back_content: document.getElementById("back").value,
+//         };
         
-        fetch(url, {
-            method: 'POST',
-            body: JSON.stringify(formInputs),
-            headers: {'Content-Type' : 'application/json',},
-        })
-            .then((response) => response.text())
-            .then((responseData) => {
-                console.log(responseData);
-            });
-    });
-}
+//         fetch('/create-flashcard', {
+//             method: 'POST',
+//             body: JSON.stringify(formInputs),
+//             headers: {'Content-Type' : 'application/json',},
+//         })
+//             .then((response) => response.json())
+//             .then((responseData) => {
+//                 console.log(responseData);
+//                 const flashcards = document.getElementById('flashcard-section');
+//                 flashcards.innerHTML += `<li class="list-group-item" id="flashcard-${responseData['flashcard_id']}" style="display:block;" >
+//                                             <h4>${responseData['front_content']}</h4>
+//                                             <button type="button" class="delete-flashcard btn btn-danger" id="${responseData['flashcard_id']}">Delete</button>
+//                                             <button type="button" class="btn btn-success">Edit</button>
+//                                         </li>`;
+//             })
+
+//     });
+// }
 
 
 //Delete flashcard from user deck and design space
