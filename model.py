@@ -1,4 +1,4 @@
-"""Models for movie ratings app."""
+"""Model for language study flashcard app."""
 
 from flask_sqlalchemy import SQLAlchemy
 
@@ -23,7 +23,6 @@ class User(db.Model):
         return f"<User user_id={self.user_id} fname={self.fname} lname={self.lname}>"
 
 
-
 class Deck(db.Model):
     """A deck."""
 
@@ -31,6 +30,10 @@ class Deck(db.Model):
 
     deck_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     deck_name = db.Column(db.String, nullable = False)
+    # deck_color = db.Column(db.String, nullable = False)
+    # deck_font = db.Column(db.String, nullable = False)
+    # deck_font_color = db.Column(db.String, nullable = False)
+    # deck_img = db.Column(db.String, nullable = False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable = False)
 
     user = db.relationship("User", back_populates="decks")
@@ -48,6 +51,7 @@ class Flashcard(db.Model):
     flashcard_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     front_content = db.Column(db.String, nullable = False)
     back_content = db.Column(db.String, nullable = False)
+    # flashcard_img = db.Column(db.String, nullable = False)
     deck_id = db.Column(db.Integer, db.ForeignKey("decks.deck_id"), nullable = False)
 
     deck = db.relationship("Deck", back_populates="flashcards")

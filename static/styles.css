@@ -4,21 +4,13 @@
     box-sizing: border-box;
 }
 
-.section{
-    display: flex;
+.fullview-row{
     height: 100vh;
     justify-content: center;
     align-items: center;
 }
 
-#section-one{
-    background-color: yellow;
-}
-
-#section-two{
-    background-color: pink;
-}
-
-img{
-    background-color: gray;
+.centered-content{
+    text-align: center;
+    padding: 30px;
 }

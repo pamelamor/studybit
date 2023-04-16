@@ -8,15 +8,15 @@
 
 <div class="container-fluid">
 
-    <div class="row">
-        <div class="col section">
-            <form name="signup" action="/new-workspace" method="POST">
+    <div class="row fullview-row">
+        <div class="col-4 centered-content">
+            <form name="signup" action="/login-signup" method="POST">
                 First name  <input type="text" placeholder="first name" name="fname" required><br>
                 Last name   <input type="text" placeholder="last name" name="lname" required><br>
                 Email   <input type="email" placeholder="email" name="email" required><br>
                 Password    <input type="password" placeholder="password" name="password" required>
 
-                <button type="submit" id="login">Sign Up</button>
+                <button type="submit" id="signupButton">Sign Up</button>
 
                 <p>Alredy have an account? <a href="/signin">Log in</a></p>
 

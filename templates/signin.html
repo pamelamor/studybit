@@ -8,16 +8,17 @@
 
 <div class="container-fluid">
 
-    <div class="row">
-        <div class="col section">
-            <form name="signin" action="/workspace">
+    <div class="row fullview-row">
+        <div class="col-4 centered-content">
+            <form name="signin" action="/login-signup">
                 Email<input type="email" placeholder="email" name="email" required><br>
                 Password<input type="password" placeholder="password" name="password" required>
-                <button type="submit" id="login">Log in</button>
-                <!-- <p>Don't have an account? <a href="/signup">Sign Up</a></p> -->
+                <button type="submit" id="loginButton">Log in</button>
             </form>
+            <p>Don't have an account? <a href="/signup">Sign Up</a></p>
         </div>
     </div>
+
 </div>
 
 

@@ -1,44 +1,83 @@
 {% extends 'base.html' %}
 {% block title %} Design Space {% endblock %}
 
-{% block head %}{% endblock %}
+{% block head %}
+
+<style>
+
+.fullview{
+    height: 100vh;
+}
+
+#edit-section, #flashcard-section{
+    max-height:100%;
+    overflow-y: auto;
+}
+
+#title{
+    height:10%;
+    align-content: center;
+}
+
+#deck-form{
+    height:60%;
+    align-content: center;
+}
+
+#flashcard-form{
+    height:30%;
+}
+
+</style>
+
+{% endblock %}
 
 
 {% block body %}
 
-<h1>{{ deck.deck_name }} Deck Design Space</h1>
+<div class="container-fluid fullview" style="background-color: green;">
 
-<div class="container-fluid">
+    <div class="row" style="background-color: yellow; height:100%;">
+        
+        <div class="col-8" id="edit-section" style="background-color: lightblue;">  
 
-    <!-- <div class="row">   
-        <form name="deck-design" action="/update-deck/{{ deck.deck_id }}" method="PUT">
-            Deck name: <input type="text" placeholder={{deck.deck_name}} name="deck_name" required><br>
-            Image: <input type="file"><br>
-            Font: <input type="text"><br>
-            Font color: <input type="color"><br>
-            <button type="submit" id="update-deck-info"> Update</button>
-        </form>
-    </div>  -->
+            <div class="row" id="title" style="background-color: lightslategrey;">
+                <h2>{{ deck.deck_name }} Deck Design Space</h2>
+            </div> 
 
+            <div class="row" id="deck-form" style="background-color: lightsalmon;">
+                <form name="deck-design" action="/edit-deck/{{ deck.deck_id }}" method="POST">
+                    Deck name: <input type="text" placeholder={{deck.deck_name}} name="deck_name" required><br>
+                    Image: <input type="file"><br>
+                    Font: <input type="text"><br>
+                    Font color: <input type="color"><br>
+                    <!--Could probably be chnaged to a an AJAX request?-->
+                    <button type="submit" id="edit-deck-info">Save</button> 
+                </form>
+            </div>
 
-    <div class="row">  
-        <div class="col">
-            {% for flashcard in flashcards %}
-                <h4>{{ flashcard.front_content }}</h4>
-                <button type="button" class="flashdeleteButton btn btn-danger" id="{{ flashcard.flashcard_id }}">Delete</button>
-            {% endfor %}
+            <div class="row" id="flashcard-form" style="background-color: lightgreen;">  
+                <form action="/create-flashcard/{{ deck.deck_id }}" method="POST">
+                    Front: <input type="text" placeholder="front" id="front" name='front_content' required><br>
+                    Back: <input type="text" placeholder="back" id="back" name='back_content' required><br>
+                    <!-- Image: <input type="file"><br> -->
+                    <button id="{{deck.deck_id}}" type="submit">Add new flashcard</button>
+                </form>
+            </div>
+
         </div>
+
+        <ul class="col-4 list-group" id="flashcard-section" style="background-color: pink;">
+            {% for flashcard in flashcards %}
+            <li class="list-group-item" id="flashcard-{{ flashcard.flashcard_id }}" >
+                <h4>{{ flashcard.front_content }}</h4>
+                <button type="button" class="delete-flashcard btn btn-danger" id="{{ flashcard.flashcard_id }}">Delete</button>
+                <button type="button" class="btn btn-success">Edit</button>
+            </li>
+        {% endfor %}
+        </ul>
+
     </div>
-
-
-    <!-- <div class="row">  
-        <form name="new-card" action="#">
-            Front: <input type="text" placeholder="front"><br>
-            Back: <input type="text" placeholder="back"><br>
-            Image: <input type="file"><br>
-            <button type="submit">Add new flashcard</button>
-        </form>
-    </div> -->
 
 </div>
 
