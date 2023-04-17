@@ -34,34 +34,75 @@
 //     });//Try to see if there's a better way to do this without passing explicit HTML
 // }
 
-// //Delete deck from user workspace
-// const deleteDecks = document.querySelectorAll('button.delete-deck');
+//Delete deck from user workspace
+const deleteDecks = document.querySelectorAll('button.delete-deck');
 
-// for (const deck of deleteDecks) {
-//     deck.addEventListener('click', (evt) => {
+for (const deck of deleteDecks) {
+    deck.addEventListener('click', (evt) => {
 
-//         evt.preventDefault()
+        evt.preventDefault()
 
-//         const deck_id = evt.target.id;
-//         const url = `/delete-deck/${deck_id}`;
+        const deck_id = evt.target.id;
+        const url = `/delete-deck/${deck_id}`;
 
-//         fetch(url, {
-//             method: 'DELETE',
-//             headers: {'Content-Type' : 'application/json',},
-//         })
-//             .then((response) => response.text())
-//             .then((responseData) => {
-//                 if(responseData == 'Successful deletion!'){
-//                     console.log(responseData);
-//                     const deck = document.getElementById(`deck-${deck_id}`);
-//                     deck.style.display = 'none';
-//                 }
-//             });
-//     });
-// };
+        fetch(url, {
+            method: 'DELETE',
+            headers: {'Content-Type' : 'application/json',},
+        })
+            .then((response) => response.text())
+            .then((responseData) => {
+                if(responseData == 'Successful deletion!'){
+                    console.log(responseData);
+                    const deck = document.getElementById(`deck-${deck_id}`);
+                    deck.style.display = 'none';
+                }
+            });
+    });
+};
+
+
+//Update deck information in design space
+const updateDeck = document.querySelector('form.update-deck');
+
+if(updateDeck){
+    updateDeck.addEventListener('submit', (evt) =>{
+
+        evt.preventDefault();
+
+        const deck_id = evt.target.id
+        const url = `/edit-deck/${deck_id}`
+
+        const formInputs = {
+            deck_name: document.getElementById("name").value,
+        };
+        
+        fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(formInputs),
+            headers: {'Content-Type' : 'application/json',},
+        })
+            .then((response) => response.json())
+            .then((responseData) => {
+                console.log(responseData);
+                const deckName = document.getElementById('title');
+                deckName.innerHTML = `<h2>${responseData['deck_name']} Deck Design Space</h2>`
+            })
+
+    });
+}
 
 
 //######################################################################### Flashcard requests
+//BLOCK#2: Create a deck asynchrounously through AJAX without having to return HTLM code. Once
+//implemented, this request hopefully also allows you to delete decks asynchrounously. So far, when you 
+//create an async deck with the request below, it seems like "the way in which the deck is created"
+//interferes with you deleting the new deck asynchrounously as well. What's supposed to be an async deletion 
+//takes effect after you reload the page, which, if you think about it, defeats the purpose of AJAX. -------> I figured it out!
+
+//The reason why the above happens is because when we create a new deck or flashcard, and try to delete it, the process of adding an
+//eventListenier to the button never happens, this process only occurs when we navigate to /edit-deck/<deck_id>. We will try to solve this
+//moving forward.
+
 //Add new flashcard to deck in design space
 // const createFlashcard = document.getElementById('create-flashcard');
 

@@ -149,12 +149,21 @@ def delete_deck(deck_id):
 def edit_deck(deck_id):
     """View/Edit deck in design space."""
 
+
     if request.method == 'GET':
         deck = crud.get_deck_by_id(deck_id)
         flashcards = crud.get_flashcards_by_deck(deck_id)
         session['deck_id'] = deck.deck_id
 
         return render_template('customizer.html', flashcards=flashcards, deck=deck)
+    
+    elif request.method == 'POST':
+
+        deck_name = request.json.get("deck_name")
+        crud.update_deck_by_id(deck_id,deck_name)
+
+        return {'deck_name': deck_name}
+
 
 #BLOCK#2: Create a flashcard asynchrounously with AJAX.
 # @app.route('/create-flashcard', methods=['POST'])

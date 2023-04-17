@@ -46,11 +46,11 @@
             </div> 
 
             <div class="row" id="deck-form" style="background-color: lightsalmon;">
-                <form name="deck-design" action="/edit-deck/{{ deck.deck_id }}" method="POST">
-                    Deck name: <input type="text" placeholder={{deck.deck_name}} name="deck_name" required><br>
-                    Image: <input type="file"><br>
+                <form class="update-deck" id={{deck.deck_id}}>
+                    Deck name: <input type="text" placeholder={{deck.deck_name}} id="name" name="deck_name" required><br>
+                    <!-- Image: <input type="file"><br>
                     Font: <input type="text"><br>
-                    Font color: <input type="color"><br>
+                    Font color: <input type="color"><br> -->
                     <!--Could probably be chnaged to a an AJAX request?-->
                     <button type="submit" id="edit-deck-info">Save</button> 
                 </form>
@@ -62,7 +62,7 @@
                     Back: <input type="text" placeholder="back" id="back" name='back_content' required><br>
                     Image: <input type="file"><br>
                     <!-- BLOCK#2: <button id="{{deck.deck_id}}" type="submit">Add new flashcard</button> -->
-                    <button id="{{deck.deck_id}}" class="btn btn-primary" type="submit">Add new flashcard</button>
+                    <button class="btn btn-primary" type="submit">Add new flashcard</button>
                 </form>
             </div>
 
@@ -70,10 +70,12 @@
 
         <ul class="col-4 list-group" id="flashcard-section" style="background-color: pink;">
             {% for flashcard in flashcards %}
-            <li class="list-group-item" id="flashcard-{{ flashcard.flashcard_id }}" style="display: block;" >
-                <h4>{{ flashcard.front_content }}</h4>
-                <button type="button" class="delete-flashcard btn btn-danger" id="{{ flashcard.flashcard_id }}">Delete</button>
-                <button type="button" class="btn btn-success">Edit</button>
+            <li class="list-group-item" id="flashcard-{{ flashcard.flashcard_id }}" style="display: flex; justify-content: space-between;">
+                <h4 style="display: inline;">{{ flashcard.front_content }}</h4>
+                <div>
+                    <button type="button" class="delete-flashcard btn btn-danger" id="{{ flashcard.flashcard_id }}">Delete</button>
+                    <button type="button" class="update-flashcard btn btn-success">Edit</button>
+                </div>
             </li>
         {% endfor %}
         </ul>
