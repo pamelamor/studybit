@@ -164,7 +164,6 @@ def edit_deck(deck_id):
 
         return {'deck_name': deck_name}
 
-
 #BLOCK#2: Create a flashcard asynchrounously with AJAX.
 # @app.route('/create-flashcard', methods=['POST'])
 # def create_flashcard():
@@ -201,6 +200,17 @@ def delete_flashcard(flashcard_id):
     elif crud.get_flashcard_by_id(flashcard_id) != None:
 
         return 'ERROR: Unsuccessful deletion.'
+    
+
+@app.route('/edit-flashcard/<flashcard_id>', methods=['POST'])
+def edit_flashcard(flashcard_id):
+
+    front = request.json.get('front_content')
+    back = request.json.get('back_content')
+    crud.update_flashcard_by_id(flashcard_id, front, back)
+
+    return {'front_content': front}
+
 
 
 if __name__ == "__main__":

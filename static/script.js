@@ -85,7 +85,8 @@ if(updateDeck){
             .then((responseData) => {
                 console.log(responseData);
                 const deckName = document.getElementById('title');
-                deckName.innerHTML = `<h2>${responseData['deck_name']} Deck Design Space</h2>`
+                deckName.innerHTML = `<h2>${responseData['deck_name']} Deck Design Space</h2>
+                                      <a href="/workspace">Return to your decks</a>`
             })
 
     });
@@ -158,6 +159,40 @@ for (const flashcard of deleteFlashcards) {
             });
     });
 };
+
+
+//Update deck information in design space
+const updateFlashcards = document.querySelectorAll('form.update-flashcard');
+
+for(const flashcard of updateFlashcards){
+    flashcard.addEventListener('submit', (evt) =>{
+
+        evt.preventDefault();
+
+        const flashcard_id = evt.target.id;
+        const url = `/edit-flashcard/${flashcard_id}`;
+        console.log(flashcard_id);
+        const formInputs = {
+            front_content: document.getElementById(`front_update-${flashcard_id}`).value,
+            back_content: document.getElementById(`back_update-${flashcard_id}`).value,
+        };
+
+        console.log(formInputs);
+        
+        fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(formInputs),
+            headers: {'Content-Type' : 'application/json',},
+        })
+            .then((response) => response.json())
+            .then((responseData) => {
+                console.log(responseData);
+                const flashcardName = document.getElementById(`flashcard-title-${flashcard_id}`);
+                flashcardName.innerHTML = `<h4 id="flashcard-title" style="display: inline;">${responseData['front_content']}</h4>`
+            })
+
+    });
+}
 
 
   

@@ -43,6 +43,7 @@
 
             <div class="row" id="title" style="background-color: lightslategrey;">
                 <h2>{{ deck.deck_name }} Deck Design Space</h2>
+                <a href="/workspace">Return to your decks</a>
             </div> 
 
             <div class="row" id="deck-form" style="background-color: lightsalmon;">
@@ -60,7 +61,7 @@
                 <form id="create-flashcard" action="/create-flashcard" method="POST">
                     Front: <input type="text" placeholder="front" id="front" name='front_content' required><br>
                     Back: <input type="text" placeholder="back" id="back" name='back_content' required><br>
-                    Image: <input type="file"><br>
+                    <!-- Image: <input type="file"><br> -->
                     <!-- BLOCK#2: <button id="{{deck.deck_id}}" type="submit">Add new flashcard</button> -->
                     <button class="btn btn-primary" type="submit">Add new flashcard</button>
                 </form>
@@ -71,11 +72,29 @@
         <ul class="col-4 list-group" id="flashcard-section" style="background-color: pink;">
             {% for flashcard in flashcards %}
             <li class="list-group-item" id="flashcard-{{ flashcard.flashcard_id }}" style="display: flex; justify-content: space-between;">
-                <h4 style="display: inline;">{{ flashcard.front_content }}</h4>
+                <h4 id="flashcard-title-{{flashcard.flashcard_id}}" style="display: inline;">{{ flashcard.front_content }}</h4>
                 <div>
+
                     <button type="button" class="delete-flashcard btn btn-danger" id="{{ flashcard.flashcard_id }}">Delete</button>
-                    <button type="button" class="update-flashcard btn btn-success">Edit</button>
+                    <button class="btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#update-{{ flashcard.flashcard_id }}"
+                    aria-expanded="false" aria-controls="update-{{ flashcard.flashcard_id }}">Edit</button>
+
+                    <div class="collapse" id="update-{{ flashcard.flashcard_id }}">
+                        <div class="card card-body" style="width: 400px;"> 
+                            <button type="button" class="btn-close" data-bs-toggle="collapse" data-bs-target="#update-{{ flashcard.flashcard_id }}"
+                            aria-expanded="false" aria-controls="update-{{ flashcard.flashcard_id }}" aria-label="Close"></button>
+                            <form class="update-flashcard" id="{{ flashcard.flashcard_id }}">
+                                Front: <input type="text" placeholder="front" id="front_update-{{ flashcard.flashcard_id }}" name='front_content' required><br>
+                                Back: <input type="text" placeholder="back" id="back_update-{{ flashcard.flashcard_id }}" name='back_content' required><br>
+                                <!-- Image: <input type="file"><br> -->
+                                <button class="btn btn-primary" type="submit">Update flashcard</button>
+                            </form>
+                        </div>
+                    </div>
+
                 </div>
+            
+
             </li>
         {% endfor %}
         </ul>
