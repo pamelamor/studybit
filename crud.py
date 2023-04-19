@@ -40,10 +40,10 @@ def remove_user_by_id(user_id):
 
 
 ################################################################################################################################################
-def create_deck(name, user_id):
+def create_deck(name, user_id, img_url=None):
     """Create and return a new deck."""
 
-    deck = Deck(deck_name=name, user_id=user_id)
+    deck = Deck(deck_name=name, user_id=user_id, deck_img_url=img_url)
     db.session.add(deck)
     db.session.commit()
 
@@ -87,10 +87,11 @@ def remove_decks_by_user(user_id):
 
 #The img, font, deck_color and font_color properties haven't been included for updates yet 
 # (must be optional when implemented), only deck_name is required for an update request to the DB
-def update_deck_by_id(deck_id, deck_name):
+def update_deck_by_id(deck_id, deck_name, deck_img):
     """Update deck information by id""" 
 
-    Deck.query.filter(Deck.deck_id == deck_id).update({"deck_name": deck_name})
+    Deck.query.filter(Deck.deck_id == deck_id).update({"deck_name": deck_name,
+                                                       "deck_img_url": deck_img})
     db.session.commit()
 
 

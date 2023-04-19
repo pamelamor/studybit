@@ -4,8 +4,16 @@ from flask import (Flask, render_template, request, session, redirect, flash, js
 import jinja2
 from model import connect_to_db, db
 import crud
+import os
+import cloudinary.uploader
 
 from jinja2 import StrictUndefined
+
+
+CLOUDINARY_KEY = os.environ['CLOUDINARY_KEY']
+CLOUDINARY_SECRET = os.environ['CLOUDINARY_SECRET']
+CLOUDINARY_NAME = 'darjy6jqz'
+
 
 app = Flask(__name__)
 app.secret_key = "dev"
@@ -159,10 +167,16 @@ def edit_deck(deck_id):
     
     elif request.method == 'POST':
 
-        deck_name = request.json.get("deck_name")
-        crud.update_deck_by_id(deck_id,deck_name)
+        deck_name = request.form.get('deck_name')
+        img_file = request.files['deck_img']
+        result = cloudinary.uploader.upload(img_file, api_key=CLOUDINARY_KEY,
+                                        api_secret=CLOUDINARY_SECRET,
+                                        cloud_name=CLOUDINARY_NAME)
+        deck_img_url = result['secure_url']
+        crud.update_deck_by_id(deck_id,deck_name,deck_img_url)
 
-        return {'deck_name': deck_name}
+        return jsonify({'deck_name': deck_name, "deck_img_url": deck_img_url})
+    
 
 #BLOCK#2: Create a flashcard asynchrounously with AJAX.
 # @app.route('/create-flashcard', methods=['POST'])

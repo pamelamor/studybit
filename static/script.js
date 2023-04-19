@@ -72,14 +72,24 @@ if(updateDeck){
         const deck_id = evt.target.id
         const url = `/edit-deck/${deck_id}`
 
-        const formInputs = {
-            deck_name: document.getElementById("name").value,
-        };
+        const imgInput = document.querySelector('input[type="file"]');
+        const deck_name = document.getElementById('deck_name').value;
+        const deck_img = imgInput.files[0]
+
+        console.log(deck_name)
+
+        const formData = new FormData();
+        formData.append('deck_img', deck_img)
+        formData.append('deck_name', deck_name)
+
+
+        // for (var pair of formData.entries()) {
+        //     console.log(pair[0]+ ', ' + pair[1]); 
+        // }
         
         fetch(url, {
             method: 'POST',
-            body: JSON.stringify(formInputs),
-            headers: {'Content-Type' : 'application/json',},
+            body: formData,
         })
             .then((response) => response.json())
             .then((responseData) => {
@@ -194,6 +204,3 @@ for(const flashcard of updateFlashcards){
     });
 }
 
-
-  
-    
