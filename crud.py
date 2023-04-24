@@ -40,10 +40,10 @@ def remove_user_by_id(user_id):
 
 
 ################################################################################################################################################
-def create_deck(name, user_id, img_url=None):
+def create_deck(name, user_id, img_url='/static/placeholder.png.webp', font='Helvetica Neue', font_color='#000000'):
     """Create and return a new deck."""
 
-    deck = Deck(deck_name=name, user_id=user_id, deck_img_url=img_url)
+    deck = Deck(deck_name=name, user_id=user_id, deck_img_url=img_url, deck_font=font, deck_font_color=font_color)
     db.session.add(deck)
     db.session.commit()
 
@@ -87,11 +87,24 @@ def remove_decks_by_user(user_id):
 
 #The img, font, deck_color and font_color properties haven't been included for updates yet 
 # (must be optional when implemented), only deck_name is required for an update request to the DB
-def update_deck_by_id(deck_id, deck_name, deck_img):
+def update_deck_by_id(deck_id, deck_name=None, deck_img=None, deck_font=None, deck_font_color=None):
     """Update deck information by id""" 
 
+    deck = get_deck_by_id(deck_id)
+
+    if deck_name == None:
+        deck_name = deck.deck_name 
+    elif deck_img == None:
+        deck_img = deck.deck_img 
+    elif deck_font == None:
+        deck_font = deck.deck_font
+    elif deck_name == None:
+        deck_font_color = deck.deck_font_color
+
     Deck.query.filter(Deck.deck_id == deck_id).update({"deck_name": deck_name,
-                                                       "deck_img_url": deck_img})
+                                                       "deck_img_url": deck_img,
+                                                       "deck_font": deck_font,
+                                                       "deck_font_color": deck_font_color})
     db.session.commit()
 
 

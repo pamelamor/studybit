@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %} Web App Name {% endblock %}
+
+{% block head %}{% endblock %}
+
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row fullview-row" style="background-color: red;">
+
+        <h1 id="deck.deck_id">{{deck.deck_name}}</h1>
+        <a href="/workspace" style="display:block;" id="exit">Exit session</a>
+
+        <div class="col-8" id="finished" style="display:none; background-color: pink; padding: 30px;">
+            <h1>Review completed!</h1>
+            <a href="/workspace">Return to workspace</a>
+        </div>
+
+        <div class="col-8 card-container" id="unfinished" style="display:block; background-color: pink; padding: 30px;">
+
+            <div class="card card-front">
+                <div class="row" style="background-color: blueviolet; justify-content: center;" >
+                    <div class="col-5">      
+                        <img src="/static/placeholder.png.webp" class="card-img-top" alt="..." width="300" height="300">
+                    </div>
+                </div>
+                <div class="row card-body" style="background-color: green" id="front-side">
+                    <h1 class="card-title" name="{{i}}" id="front_content">{{flashcards[i].front_content}}</h1>
+                </div>
+            </div>
+
+            <div class="card card-back">
+                <div class="row card-body" style="background-color: green" id="back-side">
+                    <h1 class="card-title" name="{{i}}" id="back_content">{{flashcards[i].back_content}}</h1>
+                </div>
+            </div>
+
+        </div>
+
+        <div>
+            <button class="next" id={{deck.deck_id}}>Next</button>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
+    
+{% block after_body %}{% endblock %}

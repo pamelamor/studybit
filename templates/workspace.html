@@ -21,10 +21,10 @@
         {% for deck in decks %}
         <div class="col" id="deck-{{deck.deck_id}}">
             <div class="card">
-                <img src="#" class="card-img-top" style="height: 15rem;" alt="Image"> 
+                <img src="{{deck.deck_img_url}}" class="card-img-top" style="height: 12rem;" alt="Image"> 
                 <div class="card-body">
                     <h5 id="card-title" class="card-title">{{ deck.deck_name }}</h5>
-                    <a href="#" class="btn btn-primary">Practice</a> 
+                    <a href="/study-session/{{deck.deck_id}}" class="btn btn-primary">Practice</a> 
                     <a id="card-edit" href="/edit-deck/{{ deck.deck_id }}" class="btn btn-success">Edit</a>
                     <button type="button" id="{{ deck.deck_id }}" class="delete-deck btn btn-danger">Delete</button>
                 </div>

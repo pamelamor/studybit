@@ -14,3 +14,29 @@
     text-align: center;
     padding: 30px;
 }
+
+.card-container{
+    perspective: 200rem;
+    position: relative;
+    height:500px;
+}
+
+.card-container:hover .card-front{
+    transform: rotateY(180deg);
+}
+
+.card-container:hover .card-back{
+    transform: rotateY(0deg);
+}
+
+.card-back{
+    transform: rotateY(180deg);
+}
+
+.card-container > .card{
+    transition: all 0.9s;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+}

@@ -61,46 +61,81 @@ for (const deck of deleteDecks) {
 };
 
 
-//Update deck information in design space
-const updateDeck = document.querySelector('form.update-deck');
+//BLOCK#3: Allow for th user to send singular field data while leaving the rest empty.
+// //Update deck information in design space + display image being uploaded
+// function preview(){
+//     uploaded_image.src=URL.createObjectURL(event.target.files[0]);
+// }
 
-if(updateDeck){
-    updateDeck.addEventListener('submit', (evt) =>{
+// const updateDeck = document.querySelector('form.update-deck');
+// if(updateDeck){
+//     updateDeck.addEventListener('submit', (evt) =>{
 
-        evt.preventDefault();
+//         evt.preventDefault();
 
-        const deck_id = evt.target.id
-        const url = `/edit-deck/${deck_id}`
-
-        const imgInput = document.querySelector('input[type="file"]');
-        const deck_name = document.getElementById('deck_name').value;
-        const deck_img = imgInput.files[0]
-
-        console.log(deck_name)
-
-        const formData = new FormData();
-        formData.append('deck_img', deck_img)
-        formData.append('deck_name', deck_name)
+//         const deck_id = evt.target.id
+//         const url = `/edit-deck/${deck_id}`
+//         const formData = new FormData();
+//         const deck_name = document.getElementById('deck_name').value;
+//         const deck_font = document.getElementById('deck_font').value;
+//         const deck_font_color = document.getElementById('deck_font_color').value;
 
 
-        // for (var pair of formData.entries()) {
-        //     console.log(pair[0]+ ', ' + pair[1]); 
-        // }
-        
-        fetch(url, {
-            method: 'POST',
-            body: formData,
-        })
-            .then((response) => response.json())
-            .then((responseData) => {
-                console.log(responseData);
-                const deckName = document.getElementById('title');
-                deckName.innerHTML = `<h2>${responseData['deck_name']} Deck Design Space</h2>
-                                      <a href="/workspace">Return to your decks</a>`
-            })
+//         const imgInput = document.querySelector('input[type="file"]');
+//         let deck_img = imgInput.files[0]
+//         if(deck_img != undefined){
+//             console.log("defined")
+//             formData.append('deck_img', deck_img)
+//             formData.append('deck_name', deck_name)
+//             formData.append('deck_font', deck_font)
+//             formData.append('deck_font_color', deck_font_color)
 
-    });
-}
+//             for (var pair of formData.entries()) {
+//                 console.log(pair[0]+ ', ' + pair[1]); 
+//             }
+            
+//             fetch(url, {
+//                 method: 'POST',
+//                 body: formData,
+//             })
+//             .then((response) => response.json())
+//             .then((responseData) => {
+//                 console.log(responseData);
+//                 // const deckName = document.getElementById('title');
+//                 // deckName.innerHTML = `<h2>${responseData['deck_name']} Deck Design Space</h2>
+//                 //                       <a href="/workspace">Return to your decks</a>`;
+//             })
+//         }
+//         else{
+//             console.log("undefined")
+//             const formInputs = {
+//                 deck_name: document.getElementById('deck_name').value,
+//                 deck_font: document.getElementById('deck_font').value,
+//                 deck_font_color: document.getElementById('deck_font_color').value
+//             }
+
+
+//             // for(const item of formInputs) {
+//             //     console.log(item); 
+//             // }
+            
+//             fetch(url, {
+//                 method: 'POST',
+//                 body: JSON.stringify(formInputs),
+//                 headers: {'Content-Type' : 'application/json',},
+//             })
+//             .then((response) => response.json())
+//             .then((responseData) => {
+//                 console.log(responseData);
+//                 // const deckName = document.getElementById('title');
+//                 // deckName.innerHTML = `<h2>${responseData['deck_name']} Deck Design Space</h2>
+//                 //                       <a href="/workspace">Return to your decks</a>`;
+//             })
+            
+//         }
+
+//     });
+// }
 
 
 //######################################################################### Flashcard requests
@@ -201,6 +236,56 @@ for(const flashcard of updateFlashcards){
                 flashcardName.innerHTML = `<h4 id="flashcard-title" style="display: inline;">${responseData['front_content']}</h4>`
             })
 
+    });
+}
+
+
+//Flip card in study session and collect user answer data with a click to a button
+// const card = document.querySelector('.card-container');
+
+// card.addEventListener('click', () => {
+
+//     console.log("Card clicked!");
+// });
+
+//Switch the following card in the stack
+const nextBtn = document.querySelector('.next');
+
+if(nextBtn){
+    nextBtn.addEventListener('click', (evt) =>{
+
+        evt.preventDefault();
+        const deck_id = evt.target.id;
+        const url = `/study-session/${deck_id}`
+
+        
+        const formInputs = {i: document.getElementById('front_content').getAttribute('name')}
+        
+        console.log(formInputs)
+
+        fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(formInputs),
+            headers: {'Content-Type' : 'application/json',},
+        })
+            .then((response) => response.json())
+            .then((responseData) => {
+                if(responseData['msg']){
+                    console.log(responseData['msg']);
+                    const exit = document.getElementById('exit')
+                    const done = document.getElementById('finished')
+                    const not_done = document.getElementById('unfinished')
+                    not_done.style.display = 'none';
+                    exit.style.display = 'none';
+                    done.style.display = 'block';
+                }
+                else{
+                    const front = document.getElementById('front-side');
+                    front.innerHTML = `<h1 class="card-title" name=${responseData['i']} id="front_content">${responseData['front']}</h1>`;
+                    const back = document.getElementById('back-side');
+                    back.innerHTML = `<h1 class="card-title" name=${responseData['i']} id="back_content">${responseData['back']}</h1>`;
+                }  
+            });
     });
 }
 

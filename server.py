@@ -1,11 +1,14 @@
 """Server for flashcard app."""
 
-from flask import (Flask, render_template, request, session, redirect, flash, jsonify)
+from flask import (Flask, render_template, request, session, redirect, flash, jsonify,json)
 import jinja2
 from model import connect_to_db, db
 import crud
 import os
+import requests
+import random
 import cloudinary.uploader
+import urllib.request
 
 from jinja2 import StrictUndefined
 
@@ -13,6 +16,7 @@ from jinja2 import StrictUndefined
 CLOUDINARY_KEY = os.environ['CLOUDINARY_KEY']
 CLOUDINARY_SECRET = os.environ['CLOUDINARY_SECRET']
 CLOUDINARY_NAME = 'darjy6jqz'
+GOOGLE_FONTS_KEY = os.environ['GOOGLE_FONTS_KEY']
 
 
 app = Flask(__name__)
@@ -159,23 +163,52 @@ def edit_deck(deck_id):
 
 
     if request.method == 'GET':
+
+        url = f'https://www.googleapis.com/webfonts/v1/webfonts?key={GOOGLE_FONTS_KEY}'
+        result = requests.get(url)
+        data = result.json()
+
+        fonts = []
+        for obj in data['items']:
+            fonts.append(obj['family'])
+
         deck = crud.get_deck_by_id(deck_id)
         flashcards = crud.get_flashcards_by_deck(deck_id)
-        session['deck_id'] = deck.deck_id
-
-        return render_template('customizer.html', flashcards=flashcards, deck=deck)
+        session['deck_id'] = deck.deck_id    
     
-    elif request.method == 'POST':
 
-        deck_name = request.form.get('deck_name')
-        img_file = request.files['deck_img']
-        result = cloudinary.uploader.upload(img_file, api_key=CLOUDINARY_KEY,
-                                        api_secret=CLOUDINARY_SECRET,
-                                        cloud_name=CLOUDINARY_NAME)
-        deck_img_url = result['secure_url']
-        crud.update_deck_by_id(deck_id,deck_name,deck_img_url)
+        return render_template('customizer.html', flashcards=flashcards, deck=deck, fonts=fonts)
+    
 
-        return jsonify({'deck_name': deck_name, "deck_img_url": deck_img_url})
+    #BLOCK#3: Allow for th user to send singular field data while leaving the rest empty.
+    # elif request.method == 'POST':
+
+    #     deck_name = request.form.get('deck_name')
+    #     print(deck_name)
+    #     print("******************************************")
+    #     print(request.form.get('deck_img'))
+    #     print("******************************************")
+    #     # img_file = request.files['deck_img']
+    #     # print(img_file)
+    #     # print("******************************************")
+
+    #     # result = cloudinary.uploader.upload(img_file, api_key=CLOUDINARY_KEY,
+    #     #                                 api_secret=CLOUDINARY_SECRET,
+    #     #                                 cloud_name=CLOUDINARY_NAME)
+    #     # deck_img_url = result['secure_url']
+    #     deck_img_url = None
+
+
+    #     deck_font = request.form.get('deck_font')
+    #     print(deck_font)
+    #     print("******************************************")
+    #     deck_font_color = request.form.get('deck_font_color')
+    #     print(deck_font_color)
+    #     print("******************************************")
+    #     crud.update_deck_by_id(deck_id,deck_name,deck_img_url, deck_font, deck_font_color)
+
+    #     return jsonify({'deck_name': deck_name, "deck_img_url": deck_img_url, "deck_font": deck_font, 
+    #                     "deck_font_color": deck_font_color})
     
 
 #BLOCK#2: Create a flashcard asynchrounously with AJAX.
@@ -224,6 +257,34 @@ def edit_flashcard(flashcard_id):
     crud.update_flashcard_by_id(flashcard_id, front, back)
 
     return {'front_content': front}
+
+
+###################################################### STUDY SESSION ROUTES
+@app.route('/study-session/<deck_id>', methods=['GET', 'POST'])
+def study_session(deck_id):
+
+
+    if request.method == 'GET':
+
+        deck = crud.get_deck_by_id(deck_id)
+        flashcards = crud.get_flashcards_by_deck(deck_id)
+        i = -1
+        
+        return render_template('studysession.html', deck=deck, flashcards=flashcards, i=i)
+    
+    elif request.method == 'POST':
+
+        flashcards = crud.get_flashcards_by_deck(deck_id)
+        
+        i = int(request.json.get('i'))
+        if i-1 < -len(flashcards):
+
+            return jsonify({'msg': "Finished!"})
+        else:
+
+            next_flashcard = flashcards[i-1]
+
+            return jsonify({'i': i - 1, 'front': next_flashcard.front_content, 'back': next_flashcard.back_content})
 
 
 

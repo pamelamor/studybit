@@ -31,9 +31,9 @@ class Deck(db.Model):
     deck_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     deck_name = db.Column(db.String, nullable = False)
     # deck_color = db.Column(db.String, nullable = False)
-    # deck_font = db.Column(db.String, nullable = False)
-    # deck_font_color = db.Column(db.String, nullable = False)
-    deck_img_url = db.Column(db.String, nullable = True)
+    deck_font = db.Column(db.String, nullable = False)
+    deck_font_color = db.Column(db.String, nullable = False)
+    deck_img_url = db.Column(db.String, nullable = False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable = False)
 
     user = db.relationship("User", back_populates="decks")
