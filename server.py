@@ -1,8 +1,11 @@
 """Server for flashcard app."""
 
 from flask import (Flask, render_template, request, session, redirect, flash, jsonify,json)
-import jinja2
+from jinja2 import StrictUndefined
 from model import connect_to_db, db
+from twilio.rest import Client
+from datetime import datetime
+import jinja2
 import crud
 import os
 import requests
@@ -10,18 +13,38 @@ import random
 import cloudinary.uploader
 import urllib.request
 
-from jinja2 import StrictUndefined
-
 
 CLOUDINARY_KEY = os.environ['CLOUDINARY_KEY']
 CLOUDINARY_SECRET = os.environ['CLOUDINARY_SECRET']
 CLOUDINARY_NAME = 'darjy6jqz'
+
 GOOGLE_FONTS_KEY = os.environ['GOOGLE_FONTS_KEY']
+GOOGLE_FONTS_KEY = os.environ['GOOGLE_FONTS_KEY']
+
+ACCOUNT_SID = os.environ['ACCOUNT_SID']
+AUTH_TOKEN = os.environ['AUTH_TOKEN']
+TWIILIO_NUM = os.environ['TWIILIO_NUM']
+MY_NUM = os.environ['MY_NUM']
 
 
 app = Flask(__name__)
 app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined
+
+###################################################### TWILIO API
+client = Client(ACCOUNT_SID, AUTH_TOKEN)
+print(repr(datetime.utcnow()))
+
+message = client.messages \
+    .create(
+         messaging_service_sid = 'MG1226bd960a44a56fe787f2dc71c59d46',
+         body = 'It works!',
+         send_at = datetime(2023, 4, 25, 15, 00, 00),
+         schedule_type = 'fixed',
+         to = MY_NUM
+     )
+
+print(message.sid)
 
 ###################################################### SIGNIN/UP ROUTES
 @app.route('/')
