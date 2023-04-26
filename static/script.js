@@ -61,81 +61,58 @@ for (const deck of deleteDecks) {
 };
 
 
+
+//Display image being uploaded
+function preview(){
+    uploaded_image.src=URL.createObjectURL(event.target.files[0]);
+}
+
+
 //BLOCK#3: Allow for th user to send singular field data while leaving the rest empty.
-// //Update deck information in design space + display image being uploaded
-// function preview(){
-//     uploaded_image.src=URL.createObjectURL(event.target.files[0]);
-// }
+//Update deck information in design space
+const updateDeck = document.querySelector('form.update-deck');
+if(updateDeck){
+    updateDeck.addEventListener('submit', (evt) =>{
 
-// const updateDeck = document.querySelector('form.update-deck');
-// if(updateDeck){
-//     updateDeck.addEventListener('submit', (evt) =>{
+        evt.preventDefault();
 
-//         evt.preventDefault();
+        const deck_id = evt.target.id
+        const url = `/edit-deck/${deck_id}`
+        const formData = new FormData();
+        const imgInput = document.querySelector('input[type="file"]');
+        let deck_img = imgInput.files[0]
 
-//         const deck_id = evt.target.id
-//         const url = `/edit-deck/${deck_id}`
-//         const formData = new FormData();
-//         const deck_name = document.getElementById('deck_name').value;
-//         const deck_font = document.getElementById('deck_font').value;
-//         const deck_font_color = document.getElementById('deck_font_color').value;
+        if(deck_img == undefined){
+            deck_img = new File([""], "dummyfile.png", {type: "img/png", lastModified: new Date(0)});
+        }
+
+        const deck_name = document.getElementById('deck_name').value;
+        const deck_font = document.getElementById('deck_font').value;
+        const deck_font_color = document.getElementById('deck_font_color').value;
 
 
-//         const imgInput = document.querySelector('input[type="file"]');
-//         let deck_img = imgInput.files[0]
-//         if(deck_img != undefined){
-//             console.log("defined")
-//             formData.append('deck_img', deck_img)
-//             formData.append('deck_name', deck_name)
-//             formData.append('deck_font', deck_font)
-//             formData.append('deck_font_color', deck_font_color)
+        formData.append('deck_img', deck_img)
+        formData.append('deck_name', deck_name)
+        formData.append('deck_font', deck_font)
+        formData.append('deck_font_color', deck_font_color)
 
-//             for (var pair of formData.entries()) {
-//                 console.log(pair[0]+ ', ' + pair[1]); 
-//             }
+        for (var pair of formData.entries()) {
+            console.log(pair[0]+ ', ' + pair[1]); 
+        }
             
-//             fetch(url, {
-//                 method: 'POST',
-//                 body: formData,
-//             })
-//             .then((response) => response.json())
-//             .then((responseData) => {
-//                 console.log(responseData);
-//                 // const deckName = document.getElementById('title');
-//                 // deckName.innerHTML = `<h2>${responseData['deck_name']} Deck Design Space</h2>
-//                 //                       <a href="/workspace">Return to your decks</a>`;
-//             })
-//         }
-//         else{
-//             console.log("undefined")
-//             const formInputs = {
-//                 deck_name: document.getElementById('deck_name').value,
-//                 deck_font: document.getElementById('deck_font').value,
-//                 deck_font_color: document.getElementById('deck_font_color').value
-//             }
-
-
-//             // for(const item of formInputs) {
-//             //     console.log(item); 
-//             // }
-            
-//             fetch(url, {
-//                 method: 'POST',
-//                 body: JSON.stringify(formInputs),
-//                 headers: {'Content-Type' : 'application/json',},
-//             })
-//             .then((response) => response.json())
-//             .then((responseData) => {
-//                 console.log(responseData);
-//                 // const deckName = document.getElementById('title');
-//                 // deckName.innerHTML = `<h2>${responseData['deck_name']} Deck Design Space</h2>
-//                 //                       <a href="/workspace">Return to your decks</a>`;
-//             })
-            
-//         }
-
-//     });
-// }
+        fetch(url, {
+            method: 'POST',
+            body: formData,
+        })
+            .then((response) => response.json())
+            .then((responseData) => {
+                console.log(responseData);
+                const deckName = document.getElementById('title');
+                deckName.innerHTML = `<h2>${responseData['deck_name']} Deck Design Space</h2>
+                                      <a href="/workspace">Return to your decks</a>`;
+            });
+    });
+}
 
 
 //######################################################################### Flashcard requests
@@ -240,15 +217,18 @@ for(const flashcard of updateFlashcards){
 }
 
 
-//Flip card in study session and collect user answer data with a click to a button
-// const card = document.querySelector('.card-container');
+//Flip card in study session 
+const card = document.querySelector('.card_inner');
+if(card){
+    card.addEventListener('click', () => {
 
-// card.addEventListener('click', () => {
+        console.log("Card clicked!");
+        card.classList.toggle('is-flipped')
+    });
+}
 
-//     console.log("Card clicked!");
-// });
 
-//Switch the following card in the stack
+//Switch the following card in the stack and collect user answer data 
 const nextBtn = document.querySelector('.next');
 
 if(nextBtn){
@@ -259,9 +239,10 @@ if(nextBtn){
         const url = `/study-session/${deck_id}`
 
         
-        const formInputs = {i: document.getElementById('front_content').getAttribute('name')}
+        const formInputs = {
+            i: document.getElementById('front_content').getAttribute('name')
+        }
         
-        console.log(formInputs)
 
         fetch(url, {
             method: 'POST',
@@ -288,4 +269,7 @@ if(nextBtn){
             });
     });
 }
+
+
+console.log(sessionStorage)
 

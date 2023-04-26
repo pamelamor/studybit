@@ -47,12 +47,12 @@
             </div> 
 
             <div class="row" id="deck-form" style="background-color: lightsalmon;">
-                <div class="col-6">
+                <div class="col-6" >
                     <img id="uploaded_image" src="{{deck.deck_img_url}}" width="500" height="300"/><br>
                 </div>
                 <form class="update-deck" id={{deck.deck_id}} enctype="multipart/form-data" method="POST">
                     Deck name: <input type="text" id="deck_name" name="deck_name_" value="{{deck.deck_name}}" placeholder={{deck.deck_name}}><br>
-                    Image: <input type="file" name="deck_img" id="deck_img_url" onchange="preview()"><br>
+                    Image: <input type="file" name="deck_img" id="deck_img_url" onchange="preview(this)"><br>
                     Font: <select id="deck_font" name="deck_font">
                         <option value={{deck.deck_font}} selected>{{ deck.deck_font }}</option>
                         {% for font in fonts %}

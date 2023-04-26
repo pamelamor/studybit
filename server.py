@@ -32,19 +32,19 @@ app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined
 
 ###################################################### TWILIO API
-client = Client(ACCOUNT_SID, AUTH_TOKEN)
-print(repr(datetime.utcnow()))
+# client = Client(ACCOUNT_SID, AUTH_TOKEN)
+# print(repr(datetime.utcnow()))
 
-message = client.messages \
-    .create(
-         messaging_service_sid = 'MG1226bd960a44a56fe787f2dc71c59d46',
-         body = 'It works!',
-         send_at = datetime(2023, 4, 25, 15, 00, 00),
-         schedule_type = 'fixed',
-         to = MY_NUM
-     )
+# message = client.messages \
+#     .create(
+#          messaging_service_sid = 'MG1226bd960a44a56fe787f2dc71c59d46',
+#          body = 'It works!',
+#          send_at = datetime(2023, 4, 25, 15, 00, 00),
+#          schedule_type = 'fixed',
+#          to = MY_NUM
+#      )
 
-print(message.sid)
+# print(message.sid)
 
 ###################################################### SIGNIN/UP ROUTES
 @app.route('/')
@@ -203,35 +203,31 @@ def edit_deck(deck_id):
         return render_template('customizer.html', flashcards=flashcards, deck=deck, fonts=fonts)
     
 
-    #BLOCK#3: Allow for th user to send singular field data while leaving the rest empty.
-    # elif request.method == 'POST':
+    #BLOCK#3: Allow for the user to send singular field data while leaving the rest empty.
+    elif request.method == 'POST':
 
-    #     deck_name = request.form.get('deck_name')
-    #     print(deck_name)
-    #     print("******************************************")
-    #     print(request.form.get('deck_img'))
-    #     print("******************************************")
-    #     # img_file = request.files['deck_img']
-    #     # print(img_file)
-    #     # print("******************************************")
+        deck_name = request.form.get('deck_name')
+        img_file = request.files['deck_img']
 
-    #     # result = cloudinary.uploader.upload(img_file, api_key=CLOUDINARY_KEY,
-    #     #                                 api_secret=CLOUDINARY_SECRET,
-    #     #                                 cloud_name=CLOUDINARY_NAME)
-    #     # deck_img_url = result['secure_url']
-    #     deck_img_url = None
+        if img_file.filename == "dummyfile.png":
 
+            deck = crud.get_deck_by_id(deck_id)
+            deck_img_url = deck.deck_img_url
 
-    #     deck_font = request.form.get('deck_font')
-    #     print(deck_font)
-    #     print("******************************************")
-    #     deck_font_color = request.form.get('deck_font_color')
-    #     print(deck_font_color)
-    #     print("******************************************")
-    #     crud.update_deck_by_id(deck_id,deck_name,deck_img_url, deck_font, deck_font_color)
+        else:
+                
+            result = cloudinary.uploader.upload(img_file, 
+                                            api_key=CLOUDINARY_KEY,
+                                            api_secret=CLOUDINARY_SECRET,
+                                            cloud_name=CLOUDINARY_NAME)
+            deck_img_url = result['secure_url']
 
-    #     return jsonify({'deck_name': deck_name, "deck_img_url": deck_img_url, "deck_font": deck_font, 
-    #                     "deck_font_color": deck_font_color})
+        deck_font = request.form.get('deck_font')
+        deck_font_color = request.form.get('deck_font_color')
+        crud.update_deck_by_id(deck_id,deck_name,deck_img_url, deck_font, deck_font_color)
+
+        return jsonify({'deck_name': deck_name, "deck_img_url": deck_img_url, "deck_font": deck_font, 
+                        "deck_font_color": deck_font_color})
     
 
 #BLOCK#2: Create a flashcard asynchrounously with AJAX.
@@ -300,7 +296,7 @@ def study_session(deck_id):
         flashcards = crud.get_flashcards_by_deck(deck_id)
         
         i = int(request.json.get('i'))
-        if i-1 < -len(flashcards):
+        if i - 1 < -len(flashcards):
 
             return jsonify({'msg': "Finished!"})
         else:
