@@ -3,8 +3,6 @@
 from flask import (Flask, render_template, request, session, redirect, flash, jsonify,json)
 from jinja2 import StrictUndefined
 from model import connect_to_db, db
-from twilio.rest import Client
-from datetime import datetime
 import jinja2
 import crud
 import os
@@ -21,30 +19,10 @@ CLOUDINARY_NAME = 'darjy6jqz'
 GOOGLE_FONTS_KEY = os.environ['GOOGLE_FONTS_KEY']
 GOOGLE_FONTS_KEY = os.environ['GOOGLE_FONTS_KEY']
 
-ACCOUNT_SID = os.environ['ACCOUNT_SID']
-AUTH_TOKEN = os.environ['AUTH_TOKEN']
-TWIILIO_NUM = os.environ['TWIILIO_NUM']
-MY_NUM = os.environ['MY_NUM']
-
 
 app = Flask(__name__)
 app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined
-
-###################################################### TWILIO API
-# client = Client(ACCOUNT_SID, AUTH_TOKEN)
-# print(repr(datetime.utcnow()))
-
-# message = client.messages \
-#     .create(
-#          messaging_service_sid = 'MG1226bd960a44a56fe787f2dc71c59d46',
-#          body = 'It works!',
-#          send_at = datetime(2023, 4, 25, 15, 00, 00),
-#          schedule_type = 'fixed',
-#          to = MY_NUM
-#      )
-
-# print(message.sid)
 
 ###################################################### SIGNIN/UP ROUTES
 @app.route('/')
@@ -202,8 +180,6 @@ def edit_deck(deck_id):
 
         return render_template('customizer.html', flashcards=flashcards, deck=deck, fonts=fonts)
     
-
-    #BLOCK#3: Allow for the user to send singular field data while leaving the rest empty.
     elif request.method == 'POST':
 
         deck_name = request.form.get('deck_name')
@@ -224,10 +200,11 @@ def edit_deck(deck_id):
 
         deck_font = request.form.get('deck_font')
         deck_font_color = request.form.get('deck_font_color')
-        crud.update_deck_by_id(deck_id,deck_name,deck_img_url, deck_font, deck_font_color)
+        deck_color = request.form.get('deck_color')
+        crud.update_deck_by_id(deck_id,deck_name,deck_img_url, deck_font, deck_font_color, deck_color)
 
         return jsonify({'deck_name': deck_name, "deck_img_url": deck_img_url, "deck_font": deck_font, 
-                        "deck_font_color": deck_font_color})
+                        "deck_font_color": deck_font_color, "deck_color": deck_color})
     
 
 #BLOCK#2: Create a flashcard asynchrounously with AJAX.
@@ -271,11 +248,27 @@ def delete_flashcard(flashcard_id):
 @app.route('/edit-flashcard/<flashcard_id>', methods=['POST'])
 def edit_flashcard(flashcard_id):
 
-    front = request.json.get('front_content')
-    back = request.json.get('back_content')
-    crud.update_flashcard_by_id(flashcard_id, front, back)
+    front = request.form.get('front_content')
+    back = request.form.get('back_content')
+    img_file = request.files['flashcard_img']
 
-    return {'front_content': front}
+    if img_file.filename == "dummyfile.png":
+
+        flashcard = crud.get_flashcard_by_id(flashcard_id)
+        image = flashcard.flashcard_img
+
+    else:
+                
+        result = cloudinary.uploader.upload(img_file, 
+                                            api_key=CLOUDINARY_KEY,
+                                            api_secret=CLOUDINARY_SECRET,
+                                            cloud_name=CLOUDINARY_NAME)
+        image = result['secure_url']
+
+
+    crud.update_flashcard_by_id(flashcard_id, front, back, image)
+
+    return {'front_content': front, 'back_content': back, 'flashcard_img': image}
 
 
 ###################################################### STUDY SESSION ROUTES

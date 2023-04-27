@@ -62,13 +62,12 @@ for (const deck of deleteDecks) {
 
 
 
-//Display image being uploaded
+//Display deck image being uploaded
 function preview(){
     uploaded_image.src=URL.createObjectURL(event.target.files[0]);
 }
 
 
-//BLOCK#3: Allow for th user to send singular field data while leaving the rest empty.
 //Update deck information in design space
 const updateDeck = document.querySelector('form.update-deck');
 if(updateDeck){
@@ -88,12 +87,14 @@ if(updateDeck){
 
         const deck_name = document.getElementById('deck_name').value;
         const deck_font = document.getElementById('deck_font').value;
+        const deck_color = document.getElementById('deck_color').value;
         const deck_font_color = document.getElementById('deck_font_color').value;
 
 
         formData.append('deck_img', deck_img)
         formData.append('deck_name', deck_name)
         formData.append('deck_font', deck_font)
+        formData.append('deck_color', deck_color)
         formData.append('deck_font_color', deck_font_color)
 
         for (var pair of formData.entries()) {
@@ -110,6 +111,7 @@ if(updateDeck){
                 const deckName = document.getElementById('title');
                 deckName.innerHTML = `<h2>${responseData['deck_name']} Deck Design Space</h2>
                                       <a href="/workspace">Return to your decks</a>`;
+                
             });
     });
 }
@@ -183,6 +185,11 @@ for (const flashcard of deleteFlashcards) {
 };
 
 
+//Display flashcard image being uploaded
+function preview_img(){
+    uploaded_card_image.src=URL.createObjectURL(event.target.files[0]);
+}
+
 //Update deck information in design space
 const updateFlashcards = document.querySelectorAll('form.update-flashcard');
 
@@ -193,18 +200,30 @@ for(const flashcard of updateFlashcards){
 
         const flashcard_id = evt.target.id;
         const url = `/edit-flashcard/${flashcard_id}`;
-        console.log(flashcard_id);
-        const formInputs = {
-            front_content: document.getElementById(`front_update-${flashcard_id}`).value,
-            back_content: document.getElementById(`back_update-${flashcard_id}`).value,
-        };
+        const formData = new FormData();
+        const imgInput = document.querySelector('input[type="file"]');
+        let flashcard_img = imgInput.files[0]
 
-        console.log(formInputs);
+        if(flashcard_img == undefined){
+            flashcard_img = new File([""], "dummyfile.png", {type: "img/png", lastModified: new Date(0)});
+        }
+
+        const front_content = document.getElementById(`front_update-${flashcard_id}`).value;
+        const back_content = document.getElementById(`back_update-${flashcard_id}`).value;
+
+
+        formData.append('front_content', front_content)
+        formData.append('back_content', back_content)
+        formData.append('flashcard_img', flashcard_img)
+
+
+        for (var pair of formData.entries()) {
+            console.log(pair[0]+ ', ' + pair[1]); 
+        }
         
         fetch(url, {
             method: 'POST',
-            body: JSON.stringify(formInputs),
-            headers: {'Content-Type' : 'application/json',},
+            body: formData,
         })
             .then((response) => response.json())
             .then((responseData) => {

@@ -48,7 +48,7 @@
 
             <div class="row" id="deck-form" style="background-color: lightsalmon;">
                 <div class="col-6" >
-                    <img id="uploaded_image" src="{{deck.deck_img_url}}" width="500" height="300"/><br>
+                    <img id="uploaded_image" src="{{deck.deck_img_url}}" width="350" height="200"/><br>
                 </div>
                 <form class="update-deck" id={{deck.deck_id}} enctype="multipart/form-data" method="POST">
                     Deck name: <input type="text" id="deck_name" name="deck_name_" value="{{deck.deck_name}}" placeholder={{deck.deck_name}}><br>
@@ -58,7 +58,8 @@
                         {% for font in fonts %}
                         <option value={{font}}>{{ font }}</option>
                         {% endfor %}
-                    </select>
+                    </select><br>
+                    Deck color: <input type="color" name="deck_color" id="deck_color" value="{{deck.deck_color}}"><br>
                     Font color: <input type="color" name="deck_font_color" id="deck_font_color" value="{{deck.deck_font_color}}"><br> 
                     <button type="submit" id="edit-deck-info">Save</button> 
                 </form>
@@ -68,7 +69,6 @@
                 <form id="create-flashcard" action="/create-flashcard" method="POST">
                     Front: <input type="text" placeholder="front" id="front" name='front_content' required><br>
                     Back: <input type="text" placeholder="back" id="back" name='back_content' required><br>
-                    <!-- Image: <input type="file"><br> -->
                     <!-- BLOCK#2: <button id="{{deck.deck_id}}" type="submit">Add new flashcard</button> -->
                     <button class="btn btn-primary" type="submit">Add new flashcard</button>
                 </form>
@@ -88,12 +88,17 @@
 
                     <div class="collapse" id="update-{{ flashcard.flashcard_id }}">
                         <div class="card card-body" style="width: 400px;"> 
-                            <button type="button" class="btn-close" data-bs-toggle="collapse" data-bs-target="#update-{{ flashcard.flashcard_id }}"
-                            aria-expanded="false" aria-controls="update-{{ flashcard.flashcard_id }}" aria-label="Close"></button>
+                            <div style="text-align:end;">
+                                <button type="button" class="btn-close" data-bs-toggle="collapse" data-bs-target="#update-{{ flashcard.flashcard_id }}"
+                                aria-expanded="false" aria-controls="update-{{ flashcard.flashcard_id }}" aria-label="Close"></button>
+                            </div>
+                            <div>
+                                <img id="uploaded_card_image" src="{{flashcard.flashcard_img}}" width="350" height="200"/><br>
+                            </div>
                             <form class="update-flashcard" id="{{ flashcard.flashcard_id }}">
                                 Front: <input type="text" placeholder="front" id="front_update-{{ flashcard.flashcard_id }}" name='front_content' required><br>
                                 Back: <input type="text" placeholder="back" id="back_update-{{ flashcard.flashcard_id }}" name='back_content' required><br>
-                                <!-- Image: <input type="file"><br> -->
+                                Image: <input type="file" name="flashcard_img" id="flashcard_img_url" onchange="preview_img(this)"><br>
                                 <button class="btn btn-primary" type="submit">Update flashcard</button>
                             </form>
                         </div>

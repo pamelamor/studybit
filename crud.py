@@ -40,10 +40,10 @@ def remove_user_by_id(user_id):
 
 
 ################################################################################################################################################
-def create_deck(name, user_id, img_url='/static/placeholder.png.webp', font='Helvetica Neue', font_color='#000000'):
+def create_deck(name, user_id, img_url='/static/placeholder.png.webp', font='Helvetica Neue', font_color='#000000', deck_color='#ffffff'):
     """Create and return a new deck."""
 
-    deck = Deck(deck_name=name, user_id=user_id, deck_img_url=img_url, deck_font=font, deck_font_color=font_color)
+    deck = Deck(deck_name=name, user_id=user_id, deck_img_url=img_url, deck_font=font, deck_font_color=font_color, deck_color=deck_color)
     db.session.add(deck)
     db.session.commit()
 
@@ -85,34 +85,22 @@ def remove_decks_by_user(user_id):
     db.session.commit()
 
 
-#The img, font, deck_color and font_color properties haven't been included for updates yet 
-# (must be optional when implemented), only deck_name is required for an update request to the DB
-def update_deck_by_id(deck_id, deck_name=None, deck_img=None, deck_font=None, deck_font_color=None):
+def update_deck_by_id(deck_id, deck_name, deck_img, deck_font, deck_font_color, deck_color):
     """Update deck information by id""" 
-
-    deck = get_deck_by_id(deck_id)
-
-    if deck_name == None:
-        deck_name = deck.deck_name 
-    elif deck_img == None:
-        deck_img = deck.deck_img 
-    elif deck_font == None:
-        deck_font = deck.deck_font
-    elif deck_name == None:
-        deck_font_color = deck.deck_font_color
 
     Deck.query.filter(Deck.deck_id == deck_id).update({"deck_name": deck_name,
                                                        "deck_img_url": deck_img,
                                                        "deck_font": deck_font,
-                                                       "deck_font_color": deck_font_color})
+                                                       "deck_font_color": deck_font_color,
+                                                       "deck_color": deck_color})
     db.session.commit()
 
 
 ################################################################################################################################################
-def create_flashcard(deck_id, front, back):
+def create_flashcard(deck_id, front, back, img='/static/placeholder.png.webp'):
     """Create and return a new flashcards"""
 
-    flashcard = Flashcard(deck_id=deck_id, front_content=front, back_content=back)
+    flashcard = Flashcard(deck_id=deck_id, front_content=front, back_content=back, flashcard_img=img)
     db.session.add(flashcard)
     db.session.commit()
 
@@ -153,13 +141,12 @@ def remove_flashcards_by_deck(deck_id):
     db.session.commit()
 
 
-#The img property hasn't been included for updates yet (must be optional when implemented), 
-# only front_content and back_content are required for an update request to the DB
-def update_flashcard_by_id(flashcard_id, front_content, back_content):
+def update_flashcard_by_id(flashcard_id, front_content, back_content, flashcard_img):
     """Update flashcard information by id""" 
 
     Flashcard.query.filter(Flashcard.flashcard_id == flashcard_id).update({"front_content": front_content,
-                                                                           "back_content": back_content })
+                                                                           "back_content": back_content,
+                                                                            "flashcard_img": flashcard_img})
     db.session.commit()
 
     
