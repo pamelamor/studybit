@@ -1,4 +1,17 @@
 {% extends 'base.html' %}
+
+{% block fonts %}
+    {% for deck in decks %}
+        {% if " " in deck.deck_font %}
+            {% set tokens = deck.deck_font.split(" ") %}
+            {% set font = "+".join(tokens) %}
+            <link href="https://fonts.googleapis.com/css2?family={{font}}" rel="stylesheet">
+        {% else %}
+            <link href="https://fonts.googleapis.com/css2?family={{deck.deck_font}}" rel="stylesheet">
+        {% endif %}
+    {% endfor %} 
+{% endblock %}
+
 {% block title %} Web App Name {% endblock %}
 
 {% block head %}{% endblock %}
@@ -22,8 +35,8 @@
         <div class="col" id="deck-{{deck.deck_id}}">
             <div class="card">
         <img src="{{deck.deck_img_url}}" class="card-img-top" style="height: 12rem;" alt="Image"> 
-                <div class="card-body" style='background-color: {{ deck.deck_color }}'>
-                    <h5 id="card-title" style='font-family: {{ deck.deck_font }}; color: {{ deck.deck_font_color }};' class="card-title">{{ deck.deck_name }}</h5>
+                <div class="card-body" style="background-color: {{ deck.deck_color }} ">
+                    <h5 id="card-title" style="font-family: '{{ deck.deck_font }}' ; color: {{ deck.deck_font_color }};" class="card-title">{{ deck.deck_name }}</h5>
                     <a href="/study-session/{{deck.deck_id}}" class="btn btn-primary">Practice</a> 
                     <a id="card-edit" href="/edit-deck/{{ deck.deck_id }}" class="btn btn-success">Edit</a>
                     <button type="button" id="{{ deck.deck_id }}" class="delete-deck btn btn-danger">Delete</button>

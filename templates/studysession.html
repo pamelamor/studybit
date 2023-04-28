@@ -1,4 +1,15 @@
 {% extends 'base.html' %}
+
+{% block fonts %}
+    {% if " " in deck.deck_font %}
+        {% set tokens = deck.deck_font.split(" ") %}
+        {% set font = "+".join(tokens) %}
+        <link href="https://fonts.googleapis.com/css2?family={{font}}" rel="stylesheet">
+    {% else %}
+        <link href="https://fonts.googleapis.com/css2?family={{deck.deck_font}}" rel="stylesheet">
+    {% endif %}
+{% endblock %}
+
 {% block title %} Web App Name {% endblock %}
 
 {% block head %}{% endblock %}
@@ -10,7 +21,7 @@
 
         <div class="row" style="background-color: orange;">
             <div class="col-1">
-                <h1 id="deck.deck_id">{{deck.deck_name}}</h1>
+                <h1 id="deck.deck_id" style="font-family: '{{deck.deck_font}}';">{{deck.deck_name}}</h1>
                 <a href="/workspace" class="btn btn-primary" style="display:block;" id="exit">Exit session</a>
             </div>
         </div>
@@ -23,7 +34,7 @@
 
             <div class="col-8 card-container" id="unfinished" style="display:block; background-color: pink;">
                 <div class="card_inner">
-                    <div class="card card-front" style="background-color: {{deck.deck_color}}; color: {{deck.deck_font_color}}; padding: 30px;">
+                    <div class="card card-front" style="background-color: {{deck.deck_color}}; font-family: '{{deck.deck_font}}'; color: {{deck.deck_font_color}}; padding: 30px;">
                         <div class="row" style="justify-content: center;" >
                             <div class="col-5" id="flashcard_img">      
                                 <img src="{{flashcards[i].flashcard_img}}" class="card-img-top" alt="..." width="300" height="300">
@@ -34,7 +45,7 @@
                         </div>
                     </div>
 
-                    <div class="card card-back" style="background-color: {{deck.deck_color}}; color: {{deck.deck_font_color}}; padding: 30px;">
+                    <div class="card card-back" style="background-color: {{deck.deck_color}}; font-family: '{{deck.deck_font}}'; color: {{deck.deck_font_color}}; padding: 30px;">
                         <div class="row card-body" id="back-side">
                             <h1 class="card-title" name="{{i}}" id="back_content">{{flashcards[i].back_content}}</h1>
                         </div>

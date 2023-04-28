@@ -122,15 +122,6 @@ def workspace():
     return render_template('workspace.html', name=name, decks=decks)
 
 
-#BLOCK#2: Create a deck asynchrounously with AJAX.
-# @app.route('/create-deck')
-# def create_deck():
-#     """Create deck in workspace through an AJAX requests."""
-
-#     deck = crud.create_deck("untitled", session['user_id'])
-#     return {"deck_name": deck.deck_name, "deck_id": deck.deck_id}
-
-
 @app.route('/create-deck')
 def create_deck():
     """Create deck in workspace."""
@@ -197,30 +188,13 @@ def edit_deck(deck_id):
             deck_img_url = result['secure_url']
 
         deck_font = request.form.get('deck_font')
-        url = f'https://fonts.googleapis.com/css?family={form_deck_font}'
-        result = requests.get(url)
-        data = result.json()
-
-        print(data)
-        
         deck_font_color = request.form.get('deck_font_color')
         deck_color = request.form.get('deck_color')
         crud.update_deck_by_id(deck_id,deck_name,deck_img_url, deck_font, deck_font_color, deck_color)
+        flash("Deck information has been updated.")
 
         return jsonify({'deck_name': deck_name, "deck_img_url": deck_img_url, "deck_font": deck_font, 
                         "deck_font_color": deck_font_color, "deck_color": deck_color})
-    
-
-#BLOCK#2: Create a flashcard asynchrounously with AJAX.
-# @app.route('/create-flashcard', methods=['POST'])
-# def create_flashcard():
-#     """Create flashcard for deck through an AJAX requests."""
-
-#     front = request.json.get('front_content')
-#     back = request.json.get('back_content')
-#     flashcard = crud.create_flashcard(session['deck_id'], front, back)
-
-#     return {'flashcard_id': flashcard.flashcard_id, 'front_content': flashcard.front_content}
 
 
 @app.route('/create-flashcard', methods=['POST'])
@@ -273,6 +247,7 @@ def edit_flashcard(flashcard_id):
 
 
     crud.update_flashcard_by_id(flashcard_id, front, back, image)
+    flash("Flashcard information has been updated.")
 
     return {'front_content': front, 'back_content': back, 'flashcard_img': image}
 

@@ -1,4 +1,15 @@
 {% extends 'base.html' %}
+
+{% block fonts %}
+    {% if " " in deck.deck_font %}
+        {% set tokens = deck.deck_font.split(" ") %}
+        {% set font = "+".join(tokens) %}
+        <link href="https://fonts.googleapis.com/css2?family={{font}}" rel="stylesheet">
+    {% else %}
+        <link href="https://fonts.googleapis.com/css2?family={{deck.deck_font}}" rel="stylesheet">
+    {% endif %}
+{% endblock %}
+
 {% block title %} Design Space {% endblock %}
 
 {% block head %}
@@ -56,7 +67,7 @@
                     Font: <select id="deck_font" name="deck_font">
                         <option value={{deck.deck_font}} selected>{{ deck.deck_font }}</option>
                         {% for font in fonts %}
-                        <option value={{font}}>{{ font }}</option>
+                            <option value="{{ font }}">{{ font }}</option>
                         {% endfor %}
                     </select><br>
                     Deck color: <input type="color" name="deck_color" id="deck_color" value="{{deck.deck_color}}"><br>
@@ -79,7 +90,7 @@
         <ul class="col-4 list-group" id="flashcard-section" style="background-color: pink;">
             {% for flashcard in flashcards %}
             <li class="list-group-item" id="flashcard-{{ flashcard.flashcard_id }}" style="display: flex; justify-content: space-between;">
-                <h4 id="flashcard-title-{{flashcard.flashcard_id}}" style="display: inline;">{{ flashcard.front_content }}</h4>
+                <h4 class="flashcard-title" id="flashcard-title-{{flashcard.flashcard_id}}" style="display: inline; font-family: {{ deck.deck_font }};">{{ flashcard.front_content }}</h4>
                 <div>
                     <button type="button" class="delete-flashcard btn btn-danger" id="{{ flashcard.flashcard_id }}">Delete</button>
                     <button class="btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#update-{{ flashcard.flashcard_id }}"
