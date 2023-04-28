@@ -52,7 +52,7 @@
                 </div>
                 <form class="update-deck" id={{deck.deck_id}} enctype="multipart/form-data" method="POST">
                     Deck name: <input type="text" id="deck_name" name="deck_name_" value="{{deck.deck_name}}" placeholder={{deck.deck_name}}><br>
-                    Image: <input type="file" name="deck_img" id="deck_img_url" onchange="preview(this)"><br>
+                    Image: <input type="file" name="deck_img" id="deck_img_url" onchange="preview()"><br>
                     Font: <select id="deck_font" name="deck_font">
                         <option value={{deck.deck_font}} selected>{{ deck.deck_font }}</option>
                         {% for font in fonts %}
@@ -81,7 +81,6 @@
             <li class="list-group-item" id="flashcard-{{ flashcard.flashcard_id }}" style="display: flex; justify-content: space-between;">
                 <h4 id="flashcard-title-{{flashcard.flashcard_id}}" style="display: inline;">{{ flashcard.front_content }}</h4>
                 <div>
-
                     <button type="button" class="delete-flashcard btn btn-danger" id="{{ flashcard.flashcard_id }}">Delete</button>
                     <button class="btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#update-{{ flashcard.flashcard_id }}"
                     aria-expanded="false" aria-controls="update-{{ flashcard.flashcard_id }}">Edit</button>
@@ -93,12 +92,12 @@
                                 aria-expanded="false" aria-controls="update-{{ flashcard.flashcard_id }}" aria-label="Close"></button>
                             </div>
                             <div>
-                                <img id="uploaded_card_image" src="{{flashcard.flashcard_img}}" width="350" height="200"/><br>
+                                <img id="uploaded_card_image_{{flashcard.flashcard_id}}" src="{{flashcard.flashcard_img}}" width="350" height="200"/><br>
                             </div>
-                            <form class="update-flashcard" id="{{ flashcard.flashcard_id }}">
-                                Front: <input type="text" placeholder="front" id="front_update-{{ flashcard.flashcard_id }}" name='front_content' required><br>
-                                Back: <input type="text" placeholder="back" id="back_update-{{ flashcard.flashcard_id }}" name='back_content' required><br>
-                                Image: <input type="file" name="flashcard_img" id="flashcard_img_url" onchange="preview_img(this)"><br>
+                            <form class="update-flashcard" id="update-flashcard-{{ flashcard.flashcard_id }}" name="{{ flashcard.flashcard_id }}">
+                                Front: <input type="text" id="front_update-{{ flashcard.flashcard_id }}" name='front_content' placeholder="{{ flashcard.front_content }}" value="{{ flashcard.front_content }}"><br>
+                                Back: <input type="text" id="back_update-{{ flashcard.flashcard_id }}" name='back_content' placeholder="{{ flashcard.back_content }}" value="{{ flashcard.back_content }}"><br>
+                                Image: <input type="file" name="flashcard_img" id="flashcard_img_url_{{flashcard.flashcard_id}}" onchange="preview_img('{{ flashcard.flashcard_id }}')"><br>
                                 <button class="btn btn-primary" type="submit">Update flashcard</button>
                             </form>
                         </div>

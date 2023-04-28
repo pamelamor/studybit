@@ -13,9 +13,9 @@ model.db.create_all()
 
 
 # Create users
-user1 = crud.create_user("Pamela", "Ortiz", "pamela@gmail.com", "pp")
+user1 = crud.create_user("Pamela", "Ortiz", "pamela@gmail.com", "pp","3473387255")
 user2 = crud.create_user("Leo", "Ortiz", "leo@gmail.com", "lp")
-user3 = crud.create_user("Massiel", "Ortiz", "massiel@gmail.com", "mp")
+user3 = crud.create_user("Massiel", "Ortiz", "massiel@gmail.com","mp","3478045934")
 
 
 #Create decks 

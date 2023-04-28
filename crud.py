@@ -3,10 +3,10 @@
 from model import User, Deck, Flashcard, connect_to_db, db
 
 
-def create_user(fname, lname, email, password):
+def create_user(fname, lname, email,password,user_phone_num=None):
     """Create and return a new user."""
 
-    user = User(fname=fname, lname=lname, email=email, password=password)
+    user = User(fname=fname, lname=lname, email=email, password=password, user_phone_num=user_phone_num, )
     db.session.add(user)
     db.session.commit()
 

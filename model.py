@@ -15,6 +15,7 @@ class User(db.Model):
     fname = db.Column(db.String, nullable = False)
     lname = db.Column(db.String, nullable = False)
     email = db.Column(db.String, nullable = False, unique = True)
+    user_phone_num = db.Column(db.String, nullable = True, unique = True)
     password = db.Column(db.String, nullable = False)
 
     decks = db.relationship("Deck", back_populates="user")

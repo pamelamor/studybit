@@ -64,9 +64,8 @@ for (const deck of deleteDecks) {
 
 //Display deck image being uploaded
 function preview(){
-    uploaded_image.src=URL.createObjectURL(event.target.files[0]);
+    console.log(uploaded_image.src=URL.createObjectURL(event.target.files[0]));
 }
-
 
 //Update deck information in design space
 const updateDeck = document.querySelector('form.update-deck');
@@ -78,8 +77,10 @@ if(updateDeck){
         const deck_id = evt.target.id
         const url = `/edit-deck/${deck_id}`
         const formData = new FormData();
-        const imgInput = document.querySelector('input[type="file"]');
-        let deck_img = imgInput.files[0]
+        const imgDeck = document.querySelector('.update-deck input[type="file"]');
+        console.log(imgDeck)
+        let deck_img = imgDeck.files[0]
+        console.log(deck_img)
 
         if(deck_img == undefined){
             deck_img = new File([""], "dummyfile.png", {type: "img/png", lastModified: new Date(0)});
@@ -186,11 +187,12 @@ for (const flashcard of deleteFlashcards) {
 
 
 //Display flashcard image being uploaded
-function preview_img(){
-    uploaded_card_image.src=URL.createObjectURL(event.target.files[0]);
+function preview_img(id){
+    const flashcard_img = document.getElementById(`uploaded_card_image_${id}`)
+    flashcard_img.src=URL.createObjectURL(event.target.files[0]);
 }
 
-//Update deck information in design space
+//Update flashcard information in design space
 const updateFlashcards = document.querySelectorAll('form.update-flashcard');
 
 for(const flashcard of updateFlashcards){
@@ -198,11 +200,14 @@ for(const flashcard of updateFlashcards){
 
         evt.preventDefault();
 
-        const flashcard_id = evt.target.id;
+        const flashcard_id = evt.target.name;
+        console.log(flashcard_id)
         const url = `/edit-flashcard/${flashcard_id}`;
         const formData = new FormData();
-        const imgInput = document.querySelector('input[type="file"]');
-        let flashcard_img = imgInput.files[0]
+        const imgCard = document.querySelector(`#${evt.target.id} input[type="file"]`);
+        console.log(imgCard)
+        let flashcard_img = imgCard.files[0]
+        console.log(flashcard_img)
 
         if(flashcard_img == undefined){
             flashcard_img = new File([""], "dummyfile.png", {type: "img/png", lastModified: new Date(0)});
@@ -280,15 +285,17 @@ if(nextBtn){
                     done.style.display = 'block';
                 }
                 else{
+                    console.log(responseData)
                     const front = document.getElementById('front-side');
                     front.innerHTML = `<h1 class="card-title" name=${responseData['i']} id="front_content">${responseData['front']}</h1>`;
                     const back = document.getElementById('back-side');
                     back.innerHTML = `<h1 class="card-title" name=${responseData['i']} id="back_content">${responseData['back']}</h1>`;
+                    const img = document.getElementById('flashcard_img');
+                    console.log(img)
+                    img.innerHTML = `<img src=${responseData['img']} class="card-img-top" alt="..." width="300" height="300">`;
                 }  
             });
     });
 }
 
-
-console.log(sessionStorage)
 

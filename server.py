@@ -1,15 +1,12 @@
 """Server for flashcard app."""
 
-from flask import (Flask, render_template, request, session, redirect, flash, jsonify,json)
+from flask import (Flask, render_template, request, session, redirect, flash, jsonify)
 from jinja2 import StrictUndefined
-from model import connect_to_db, db
-import jinja2
+from model import connect_to_db
 import crud
 import os
 import requests
-import random
 import cloudinary.uploader
-import urllib.request
 
 
 CLOUDINARY_KEY = os.environ['CLOUDINARY_KEY']
@@ -95,13 +92,14 @@ def login_signup():
         fname = request.form.get("fname")
         lname = request.form.get("lname")
         email = request.form.get("email")
+        phone_num = request.form.get("phone_number")
         password = request.form.get("password")
         user = crud.get_user_by_email(email)
 
         if(user == None):
 
             flash("You may now login.")
-            user = crud.create_user(fname, lname, email, password)
+            user = crud.create_user(fname, lname, email, password, phone_num)
 
             return redirect('/signin')
     
@@ -199,6 +197,12 @@ def edit_deck(deck_id):
             deck_img_url = result['secure_url']
 
         deck_font = request.form.get('deck_font')
+        url = f'https://fonts.googleapis.com/css?family={form_deck_font}'
+        result = requests.get(url)
+        data = result.json()
+
+        print(data)
+        
         deck_font_color = request.form.get('deck_font_color')
         deck_color = request.form.get('deck_color')
         crud.update_deck_by_id(deck_id,deck_name,deck_img_url, deck_font, deck_font_color, deck_color)
@@ -252,6 +256,8 @@ def edit_flashcard(flashcard_id):
     back = request.form.get('back_content')
     img_file = request.files['flashcard_img']
 
+    print(img_file.filename)
+
     if img_file.filename == "dummyfile.png":
 
         flashcard = crud.get_flashcard_by_id(flashcard_id)
@@ -296,7 +302,7 @@ def study_session(deck_id):
 
             next_flashcard = flashcards[i-1]
 
-            return jsonify({'i': i - 1, 'front': next_flashcard.front_content, 'back': next_flashcard.back_content})
+            return jsonify({'i': i - 1, 'front': next_flashcard.front_content, 'back': next_flashcard.back_content, 'img': next_flashcard.flashcard_img})
 
 
 
