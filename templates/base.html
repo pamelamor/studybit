@@ -16,9 +16,7 @@
     <body>
 
         {% for msg in get_flashed_messages() %}
-        <div style="display:flex; justify-content: center;">
             <p class="col-5 flash-msg alert alert-warning" style="text-align: center;" role="alert">{{ msg }}</p>
-        </div>
         {% endfor %}
 
         {% block body %}{% endblock %}

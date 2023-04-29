@@ -11,7 +11,7 @@ AUTH_TOKEN = os.environ['AUTH_TOKEN']
 TWIILIO_NUM = os.environ['TWIILIO_NUM']
 # MY_NUM = os.environ['MY_NUM']
 
-# crontab_command = '* * * * * /Users/pam/src/capstone-project/env/bin/python3 /Users/pam/src/capstone-project/send-sms.py'
+# crontab_command = '0 10 * * * /Users/pam/src/capstone-project/env/bin/python3 /Users/pam/src/capstone-project/send-sms.py'
 users = crud.get_all_users()
 
 for user in users:
@@ -20,7 +20,7 @@ for user in users:
 
         message = client.messages \
                         .create(
-                            body="You promised yourself to review today! Let's do this!😤",
+                            body="You promised yourself a review! Let's do this!😤",
                             from_=TWIILIO_NUM,
                             to="+1" + user.user_phone_num
                         )

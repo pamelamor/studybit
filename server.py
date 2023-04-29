@@ -230,7 +230,6 @@ def edit_flashcard(flashcard_id):
     back = request.form.get('back_content')
     img_file = request.files['flashcard_img']
 
-    print(img_file.filename)
 
     if img_file.filename == "dummyfile.png":
 

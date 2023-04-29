@@ -31,8 +31,22 @@ for (const deck of deleteDecks) {
 
 //Display deck image being uploaded
 function preview(){
-    console.log(uploaded_image.src=URL.createObjectURL(event.target.files[0]));
+    uploaded_image.src=URL.createObjectURL(event.target.files[0]);
 }
+
+
+function preview_card(){
+    const deck_color = document.getElementById("deck_color").value;
+    const deck_font = document.getElementById("deck_font").value;
+    const font_color = document.getElementById("deck_font_color").value;
+    const google_link = document.querySelector("#google_fonts");
+    console.log(google_link)
+    google_link.href = `https://fonts.googleapis.com/css2?family=${deck_font}`;
+    card_display.style.backgroundColor = deck_color
+    card_display.style.fontFamily = `${deck_font}`
+    card_display.style.color = font_color
+}
+
 
 //Update deck information in design space
 const updateDeck = document.querySelector('form.update-deck');
@@ -111,7 +125,7 @@ for (const flashcard of deleteFlashcards) {
 
 //Display flashcard image being uploaded
 function preview_img(id){
-    const flashcard_img = document.getElementById(`uploaded_card_image_${id}`)
+    const flashcard_img = document.getElementById(`uploaded_card_image_${id}`);
     flashcard_img.src=URL.createObjectURL(event.target.files[0]);
 }
 
