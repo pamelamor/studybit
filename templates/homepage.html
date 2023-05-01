@@ -8,15 +8,44 @@
 
 <div class="container-fluid">
 
-    <div class="row fullview-row" id="welcome">
-        <div class="col-4 centered-content">
-            <h1>Welcome</h1>
-            <a href="/signin" class="btn btn-primary" id="study">Start Studying!</a>
-            <p>Scroll down to learn more</p>
+    <div class="row" id="navbar">   
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+              <a class="nav-link" href="/signin" id="study">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/signup">Sign Up</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Github</a>
+            </li>
+          </ul>
+    </div>
+
+    
+    <div class="row fullview" id="welcome">
+        <canvas id="canvas3d"></canvas>
+        <div class="on-top">
+            <p style="font-size: 100px;">Welcome</p>
+        </div>
+        <div class="on-top" style="margin-top: 900px;">
+            <p>Scroll</p>
+            <div class="mouse_scroll">
+
+                <div class="mouse">
+                    <div class="wheel"></div>
+                </div>
+                <div>
+                    <span class="m_scroll_arrows unu"></span>
+                    <span class="m_scroll_arrows doi"></span>
+                    <span class="m_scroll_arrows trei"></span>
+                </div>
+            </div>
+        
         </div>
     </div>
 
-    <div class="row fullview-row" id="information">
+    <div class="row fullview" id="information">
         <div class="col-5 centered-content">
             <iframe src="https://giphy.com/embed/O5aYUFoJQqTV6" width="480" height="269" frameBorder="0" class="giphy-embed" allowFullScreen></iframe> 
         </div>
