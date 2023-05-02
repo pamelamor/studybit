@@ -33,6 +33,7 @@
   justify-content: center; 
   align-items: center; 
   color: lightgreen;
+  font-family: Montserrat;
 }
 
 .nav-link{
@@ -204,6 +205,8 @@
   flex-direction: column; 
   align-items: center; 
   margin-top: 90px;
+  font-family: Montserrat;
+  font-size: 40px;
 }
 
 #logup-inputs{

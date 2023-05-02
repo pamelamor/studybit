@@ -19,27 +19,39 @@
 
 {% block body %}
 
-<div class="container-fluid fullview-row">
+<div class="container-fluid fullview">
 
-    <div class="row">
-        <div class="col-6">
+    <div class="row nav" style="position: static; background-color: black; justify-content: space-between; 
+    border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; height: 130px;">
+        <div class="col-2" id="logup-logo" style=" margin-top: 0;">
+            <a style="text-decoration: none; color: white;" href="/">Studybit.</a>
+        </div>
+        <div class="col-6" style="color: white;">
             <h1>{{ name }}'s Workspace</h1>
-            <a href="/" name="logout">Log Out</a><br>
-            <!-- BLOCK#2: <button type="button" id="create-deck" class="btn btn-primary">Create a Deck</button>  -->
-            <a href="/create-deck" id="create-deck" class="btn btn-primary">Create a Deck</a> 
+        </div>
+        <div class="col-2">
+            <a class="btn btn-danger" href="/" name="logout" style="font-size: 20px;">Log Out</a><br> 
         </div>
     </div>
 
-    <div class="row row-cols-6">
+    <div class="row" style="padding: 50px">
+        <div class="col-2">
+            <a href="/create-deck" id="create-deck" class="btn btn-primary" style="font-size: 20px;">Create a Deck</a>
+        </div>
+    </div>
+
+    <div class="row row-cols-4" style="margin-left: 75px; margin-right: 75px;">
         {% for deck in decks %}
         <div class="col" id="deck-{{deck.deck_id}}">
-            <div class="card">
-        <img src="{{deck.deck_img_url}}" class="card-img-top" style="height: 12rem;" alt="Image"> 
+            <div class="card" style="margin: 20px; padding: 20px; border-radius: 20px;">
+                <img src="{{deck.deck_img_url}}" class="card-img-top" style="height: 12rem;" alt="Image"> 
                 <div class="card-body" style="background-color: {{ deck.deck_color }} ">
-                    <h5 id="card-title" style="font-family: '{{ deck.deck_font }}' ; color: {{ deck.deck_font_color }};" class="card-title">{{ deck.deck_name }}</h5>
-                    <a href="/study-session/{{deck.deck_id}}" class="btn btn-primary">Practice</a> 
-                    <a id="card-edit" href="/edit-deck/{{ deck.deck_id }}" class="btn btn-success">Edit</a>
-                    <button type="button" id="{{ deck.deck_id }}" class="delete-deck btn btn-danger">Delete</button>
+                    <h5 id="card-title" style=" margin-top: 10px; font-size: 26px; font-family: '{{ deck.deck_font }}' ; color: {{ deck.deck_font_color }};" class="card-title">{{ deck.deck_name }}</h5>
+                    <div style="display: flex; justify-content: space-between; padding:20px 0px 0px 0px;">
+                        <a href="/study-session/{{deck.deck_id}}" style="font-size: 20px;" class="btn btn-primary">Practice</a> 
+                        <a id="card-edit" href="/edit-deck/{{ deck.deck_id }}" style="font-size: 20px;" class="btn btn-success">Edit</a>
+                        <button type="button" id="{{ deck.deck_id }}" style="font-size: 20px;" class="delete-deck btn btn-danger">Delete</button>
+                    </div>
                 </div>
             </div>
         </div>

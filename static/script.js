@@ -1,16 +1,5 @@
 'use strict';
 
-//Spline canvas scene
-import {Application} from '@splinetool/runtime';
-
-const canvas = document.getElementById('canvas3d');
-const app = new Application(canvas);
-app
-    .load('https://prod.spline.design/cjO2PR-vuPfOFfea/scene.splinecode')
-
-
-//Scroll arrow fade-out
-
 
 //###################################################################### DECK
 //Delete deck from user workspace
@@ -247,5 +236,17 @@ if(nextBtn){
             });
     });
 }
+
+
+//Spline canvas scene
+import {Application} from '@splinetool/runtime';
+
+const canvas = document.getElementById('canvas3d');
+const app = new Application(canvas);
+app
+    .load('https://prod.spline.design/cjO2PR-vuPfOFfea/scene.splinecode')
+
+
+//Scroll arrow fade-out
 
 
