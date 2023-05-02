@@ -1,14 +1,38 @@
 {% extends 'base.html' %}
 {% block title %}Web App Name{% endblock %}
 
-{% block head %}{% endblock %}
+{% block head %}
+
+<style>
+
+body {
+    background-color: black;
+	animation: fadeInAnimation ease-in 3s;
+	animation-iteration-count: 1;
+	animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+</style>
+
+
+{% endblock %}
 
 
 {% block body %}
 
 <div class="container-fluid">
 
-    <div class="row" id="navbar">   
+    <div class="row" id="navbar">
+        <h1 class="col-1" id="nav_logo">Studybit.</h1>
         <ul class="nav justify-content-end">
             <li class="nav-item">
               <a class="nav-link" href="/signin" id="study">Login</a>
@@ -19,29 +43,22 @@
             <li class="nav-item">
               <a class="nav-link" href="#">Github</a>
             </li>
-          </ul>
+        </ul>
     </div>
 
     
     <div class="row fullview" id="welcome">
         <canvas id="canvas3d"></canvas>
-        <div class="on-top">
-            <p style="font-size: 100px;">Welcome</p>
+        <div class="on-top" id="welcome-animation" style="display: flex; justify-content: center; align-items: center;">
+            <p class="animation" id="english">Welcome</p>
+            <p class="animation" id="spanish">Bienvenidos</p>
+            <p class="animation" id="chinese">歡迎光臨</p>
+            <p class="animation" id="japanese">ようこそ</p>
+            <p class="animation" id="korean">환영합니다</p>
+            <p class="animation" id="portuguese">Bem-vindos</p>
         </div>
         <div class="on-top" style="margin-top: 900px;">
-            <p>Scroll</p>
-            <div class="mouse_scroll">
-
-                <div class="mouse">
-                    <div class="wheel"></div>
-                </div>
-                <div>
-                    <span class="m_scroll_arrows unu"></span>
-                    <span class="m_scroll_arrows doi"></span>
-                    <span class="m_scroll_arrows trei"></span>
-                </div>
-            </div>
-        
+            <div class="arrow" id="scroll-arrow"></div>
         </div>
     </div>
 

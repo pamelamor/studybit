@@ -8,14 +8,31 @@
 
 <div class="container-fluid">
 
-    <div class="row fullview-row">
-        <div class="col-4 centered-content">
-            <form name="signin" action="/login-signup">
-                Email<input type="email" placeholder="email" name="email" required><br>
-                Password<input type="password" placeholder="password" name="password" required>
-                <button type="submit" id="loginButton">Log in</button>
-            </form>
-            <p>Don't have an account? <a href="/signup">Sign Up</a></p>
+    <div class="row">
+        <h1 class="col-1" id="nav_logo" href="/" >Studybit.</h1>
+    </div>
+
+    <div class="row fullview" id="signin">
+        <div class="card" id="logup-card">
+            <div id="logup-logo">
+                <h1>Studybit.</h1>
+            </div>
+            <div class="card-body" id="logup-inputs">
+                <form class="form-floating" name="signin" id="logup-form" action="/login-signup">
+                    <div class="form-floating">
+                        <input type="email" class="form-control" id="floatingEmail" name="email" placeholder="name@example.com" style="font-size: 23px;" required><br>
+                        <label for="floatingEmail">Email address</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password" style="font-size: 23px;" required>
+                        <label for="floatingPassword">Password</label>
+                    </div>
+                    <button class="btn btn-dark" type="submit" id="loginButton" style="margin-top: 20px; font-size: 24px;">Log in</button>
+                </form>
+                <div style="margin-top: 65px;">
+                    <p>Don't have an account? <a href="/signup">Sign Up</a></p>
+                </div>
+            </div>
         </div>
     </div>
 

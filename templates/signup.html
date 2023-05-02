@@ -8,21 +8,48 @@
 
 <div class="container-fluid">
 
-    <div class="row fullview-row">
-        <div class="col-4 centered-content">
-            <form name="signup" action="/login-signup" method="POST">
-                First name  <input type="text" placeholder="first name" name="fname" required><br>
-                Last name   <input type="text" placeholder="last name" name="lname" required><br>
-                Email   <input type="email" placeholder="email" name="email" required><br>
-                Phoner Number (omit dashes)  <input type="tel" placeholder="phone number (optional)" name="phone_number"><br>
-                Password    <input type="password" placeholder="password" name="password" required>
+    <div class="row">
+        <h1 class="col-1" id="nav_logo" href="/">Studybit.</h1>
+    </div>
 
-                <button type="submit" id="signupButton">Sign Up</button>
-
-                <p>Alredy have an account? <a href="/signin">Log in</a></p>
-
-            </form>
+    <div class="row fullview" id="signup">
+        <div class="card" id="logup-card" style="height: 80%;">
+            <div id="logup-logo">
+                <h1>Studybit.</h1>
+            </div>
+            <div class="card-body" id="logup-inputs">
+                <form class="form-floating" name="signup" id="logup-form" action="/login-signup" method="POST" style="height: 80%;">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="floatingFname" name="fname" placeholder="First Name" style="font-size: 23px;" required>
+                        <label for="floatingFname">First Name</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="floatingLname" name="lname" placeholder="Last Name" style="font-size: 23px;" required>
+                        <label for="floatingLname">Last Name</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="email" class="form-control" id="floatingEmail" name="email" placeholder="Email" style="font-size: 23px;" required>
+                        <label for="floatingEmail">Email</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password" style="font-size: 23px;" required>
+                        <label for="floatingPassword">Password</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="tel" class="form-control" id="floatingPhone" name="phone_number" placeholder="Phone Number" style="font-size: 23px;" required>
+                        <label for="floatingPhone">Ex.1234567890</label>
+                        <div id="passwordHelpBlock" class="form-text">
+                            Your phone number should exclude any dashes, areas codes, or extensions.
+                        </div>
+                    </div>
+                    <button class="btn btn-dark" type="submit" id="signupButton" style="font-size: 24px;">Sign Up</button>
+                </form>
+                <div style="margin-top: 40px;">
+                    <p>Alredy have an account? <a href="/signin">Log in</a></p>
+                </div>
+            </div>
         </div>
+        
     </div>
 
 </div>

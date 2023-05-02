@@ -20,9 +20,19 @@
 }
 
 .nav-item{
-    font-size: 25px;
+    font-size: 30px;
     color: white;
     margin-right: 50px;
+}
+
+#nav_logo{
+  position: absolute; 
+  height:100px; 
+  margin-left: 50px;
+  display:flex; 
+  justify-content: center; 
+  align-items: center; 
+  color: lightgreen;
 }
 
 .nav-link{
@@ -30,11 +40,11 @@
 }
 
 .nav-link:hover{
-    color: lightgreen;
+    color: #90ee90;
 }
 
 
-#welcome{
+#welcome,#information{
     background-color:black;
     color: white;
 }
@@ -43,183 +53,177 @@
     position: absolute;
 }
 
-                                    /* Mouse Scroll animation */
+.animation{
+  font-size: 120px;
+  opacity: 0;
+  position: absolute;
+}
 
-*, *:before, *:after {
-    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
-   }
-  
-  
-  .mouse_scroll {
-      display: block;
-      margin: 0 auto;
-      width: 24px;
-      height: 100px;
-      margin-top: 30px;
-  }
-  
-  
-  .m_scroll_arrows
-  {
-    display: block;
-    width: 5px;
-    height: 5px;
-    -ms-transform: rotate(45deg); /* IE 9 */
-    -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
-    transform: rotate(45deg);
-     
-    border-right: 2px solid white;
-    border-bottom: 2px solid white;
-    margin: 0 0 3px 4px;
-    
-    width: 16px;
-    height: 16px;
-  }
-  
-  
-  .unu
-  {
-    margin-top: 1px;
-  }
-  
-  .unu, .doi, .trei
-  {
-      -webkit-animation: mouse-scroll 1s infinite;
-      -moz-animation: mouse-scroll 1s infinite;
-      animation: mouse-scroll 1s infinite;
-    
-  }
-  
-  .unu
-  {
-    -webkit-animation-delay: .1s;
-    -moz-animation-delay: .1s;
-    -webkit-animation-direction: alternate;
-    
-    animation-direction: alternate;
-    animation-delay: alternate;
-  }
-  
-  .doi
-  {
-    -webkit-animation-delay: .2s;
-    -moz-animation-delay: .2s;
-    -webkit-animation-direction: alternate;
-    
-    animation-delay: .2s;
-    animation-direction: alternate;
-    
-    margin-top: -6px;
-  }
-  
-  .trei
-  {
-    -webkit-animation-delay: .3s;
-    -moz-animation-delay: .3s;
-    -webkit-animation-direction: alternate;
-    
-    animation-delay: .3s;
-    animation-direction: alternate;
-    
-    
-    margin-top: -6px;
-  }
-  
-  .mouse {
-    height: 42px;
-    width: 24px;
-    border-radius: 14px;
-    transform: none;
-    border: 2px solid white;
-    top: 170px;
-  }
-  
-  .wheel {
-    height: 5px;
-    width: 2px;
-    display: block;
-    margin: 5px auto;
-    background: white;
-    position: relative;
-    
-    height: 4px;
-    width: 4px;
-    border: 2px solid #fff;
-    -webkit-border-radius: 8px;
-            border-radius: 8px;
-  }
-  
-  .wheel {
-    -webkit-animation: mouse-wheel 0.6s linear infinite;
-    -moz-animation: mouse-wheel 0.6s linear infinite;
-    animation: mouse-wheel 0.6s linear infinite;
-  }
-  
-  @-webkit-keyframes mouse-wheel{
-     0% {
-      opacity: 1;
-      -webkit-transform: translateY(0);
-      -ms-transform: translateY(0);
-      transform: translateY(0);
-    }
-  
-    100% {
-      opacity: 0;
-      -webkit-transform: translateY(6px);
-      -ms-transform: translateY(6px);
-      transform: translateY(6px);
-    }
-  }
-  @-moz-keyframes mouse-wheel {
-    0% { top: 1px; }
-    25% { top: 2px; }
-    50% { top: 3px;}
-    75% { top: 2px;}
-    100% { top: 1px;}
-  }
-  @-o-keyframes mouse-wheel {
-  
-     0% { top: 1px; }
-    25% { top: 2px; }
-    50% { top: 3px;}
-    75% { top: 2px;}
-    100% { top: 1px;}
-  }
-  @keyframes mouse-wheel {
-  
-     0% { top: 1px; }
-    25% { top: 2px; }
-    50% { top: 3px;}
-    75% { top: 2px;}
-    100% { top: 1px;}
-  }
-  
-  @-webkit-keyframes mouse-scroll {
-  
-    0%   { opacity: 0;}
-    50%  { opacity: .5;}
-    100% { opacity: 1;}
-  }
-  @-moz-keyframes mouse-scroll {
-  
-    0%   { opacity: 0; }
-    50%  { opacity: .5; }
-    100% { opacity: 1; }
-  }
-  @-o-keyframes mouse-scroll {
-  
-    0%   { opacity: 0; }
-    50%  { opacity: .5; }
-    100% { opacity: 1; }
-  }
-  @keyframes mouse-scroll {
-  
-    0%   { opacity: 0; }
-    50%  { opacity: .5; }
-    100% { opacity: 1; }
-  }
-  
+#english{
+  animation: ani1 15s infinite;
+}
 
+
+#spanish{
+  animation: ani2 15s infinite;
+}
+
+#japanese{
+  animation: ani3 15s infinite;
+}
+
+#korean{
+  animation: ani4 15s infinite;
+}
+
+#portuguese{
+  animation: ani5 15s infinite;
+}
+
+
+@keyframes ani1{
+  0%{
+    opacity: 0;
+  }
+  10%{
+    opacity: 1;
+  }
+  20%{
+    opacity: 0;
+  }
+}
+
+@keyframes ani2{
+  20%{
+    opacity: 0;
+  }
+  30%{
+    opacity: 1;
+  }
+  40%{
+    opacity: 0;
+  }
+}
+
+@keyframes ani3{
+  40%{
+    opacity: 0;
+  }
+  50%{
+    opacity: 1;
+  }
+  60%{
+    opacity: 0;
+  }
+}
+
+@keyframes ani4{
+  60%{
+    opacity: 0;
+  }
+  70%{
+    opacity: 1;
+  }
+  80%{
+    opacity: 0;
+  }
+}
+
+@keyframes ani5{
+  80%{
+    opacity: 0;
+  }
+  90%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
+}
+
+ /* Arrow animation */
+
+.arrow,
+.arrow:before {
+  position: absolute;
+  left: 50%;
+}
+                                    
+.arrow {
+  width: 40px;
+  height: 40px;
+  top: 50%;
+  margin: -20px 0 0 -20px;
+  -webkit-transform: rotate(45deg);
+  border-left: none;
+  border-top: none;
+  border-right: 2px #fff solid;
+  border-bottom: 2px #fff solid;
+}
+                                    
+.arrow:before {
+  content: "";
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  margin: -10px 0 0 -10px;
+  border-left: none;
+  border-top: none;
+  border-right: 1px #fff solid;
+  border-bottom: 1px #fff solid;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-name: arrow;
+}
+                                    
+@keyframes arrow {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+      transform: translate(-10px, -10px);
+  }
+}
+                                    
+  
+/* Sign-in & Signup */
+
+#signin,#signup{
+  background-color: black;
+}
+
+#logup-card{
+  width:30%; 
+  height: 60%; 
+  padding: 30px;
+}
+
+#logup-logo{
+  display:flex; 
+  flex-direction: column; 
+  align-items: center; 
+  margin-top: 90px;
+}
+
+#logup-inputs{
+  display:flex; 
+  flex-direction: column; 
+  justify-content:start; 
+  font-size: 20px; 
+  color:lightslategray;
+}
+
+#logup-form{
+  height: 55%; 
+  display:flex; 
+  flex-direction: column; 
+  justify-content:space-evenly;
+}
+
+.form-control{
+  background-color: rgb(252, 252, 252);
+}
 
 /* Study session flipping mechanics */
 .card-container{
