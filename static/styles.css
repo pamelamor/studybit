@@ -142,7 +142,7 @@
   }
 }
 
- /* Arrow animation */
+                                                  /* Arrow animation */
 
 .arrow,
 .arrow:before {
@@ -227,6 +227,37 @@
 .form-control{
   background-color: rgb(252, 252, 252);
 }
+
+/* Workspace */
+
+#workspace-nav{
+  position: static; 
+  background-color: black; 
+  justify-content: space-between; 
+  border-bottom-left-radius: 40px; 
+  border-bottom-right-radius: 40px; 
+  height: 130px;
+}
+
+.work-btn{
+  font-size: 20px;
+}
+
+#deck-btns{
+  display: flex; 
+  justify-content: space-between; 
+  padding:20px 0px 0px 0px;
+}
+
+
+
+
+
+
+
+
+
+
 
 /* Study session flipping mechanics */
 .card-container{
