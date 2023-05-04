@@ -13,36 +13,7 @@
 
 {% block title %} Design Space {% endblock %}
 
-{% block head %}
-
-<style>
-
-.fullview{
-    height: 100vh;
-}
-
-#edit-section, #flashcard-section{
-    max-height:100%;
-    overflow-y: auto;
-}
-
-#title{
-    height:10%;
-    align-content: center;
-}
-
-#deck-form{
-    height:60%;
-    align-content: center;
-}
-
-#flashcard-form{
-    height:30%;
-}
-
-</style>
-
-{% endblock %}
+{% block head %}{% endblock %}
 
 
 {% block body %}
@@ -53,11 +24,9 @@
         
         <div class="col-8" id="edit-section" style="height:100%;">  
 
-
-
-            <div class="row customizer-nav" id="title" style="height:10%;">
+            <div class="row customizer-nav" id="title" style="height:10%; align-content: center;">
                 <div class="col-3">
-                    <a href="/workspace" class="btn btn-primary" style="margin-left: 10px; font-size: 20px;">Return to your decks</a>
+                    <a href="/workspace" class="cust-btn btn btn-primary" style="margin-left: 10px;">Return to your decks</a>
                 </div>
                 <div class="col-4" style="text-align: left; margin-left: 130px;">
                     <h2>{{ deck.deck_name }} Deck Design Space</h2>
@@ -65,17 +34,14 @@
             </div> 
 
 
-            <div class="row" id="deck-form" style="display: flex; flex-direction:column; justify-content: start; 
-            height:90%;">
+            <div class="row" id="deck-form">
 
-                <div class="row" style="height:50%; display: flex; flex-direction: column; justify-content: center; 
-                align-items: center;">
+                <div class="row" id="imgcard_preview">
                     <div class="col-6">
-                        <img id="uploaded_image" src="{{deck.deck_img_url}}" width="600" height="400"/>
+                        <img id="uploaded_image" src="{{deck.deck_img_url}}" width="625" height="400"/>
                     </div>
-                
-                    <div class="col-6">
-                        <div class="card card-front" id="card_display" style="background-color: {{deck.deck_color}}; 
+                    <div class="col-6" style="display: flex; justify-content: center; align-items: center;">
+                        <div class="col-11 card card-front" id="card_display" style="background-color: {{deck.deck_color}}; 
                         font-family: '{{deck.deck_font}}'; color: {{deck.deck_font_color}}; padding: 30px; height: 400px">
                             <div class="row" style="justify-content: center; padding:  30px 0px;">
                                 <div class="col-5" id="flashcard_img">      
@@ -107,26 +73,27 @@
                                         <option value="{{ font }}">{{ font }}</option>
                                     {% endfor %}
                                 </select>
-                                <label for="deck_font">Deck font</label>
+                                <label for="deck_font">Deck/Flahcard font</label>
                             </div>
 
                             <div class="row">
-                                <div class="input-group" style="margin: 15px; width: 500px; height: 40px;">
+                                <div class="input-group" style="margin: 15px; width: 550px; height: 40px;">
                                     <input type="file" class="form-control form-control-lg" name="deck_img" id="deck_img_url" onchange="preview()">
-                                    <label class="input-group-text" for="deck_img_url">Upload</label>
                                 </div>
                                 <div class="col-2" style="text-align: left;">
-                                    <label for="deck_color" class="form-label" style="font-size: 20px;">Deck color</label>
-                                    <input type="color" class="form-control form-control-lg form-control-color" name="deck_color" id="deck_color" value="{{deck.deck_color}}" onchange="preview_card()">
+                                    <label for="deck_color" class="form-label cust-btn">Base color</label>
+                                    <input type="color" class="form-control form-control-lg form-control-color" name="deck_color" id="deck_color" 
+                                    value="{{deck.deck_color}}" onchange="preview_card()">
                                 </div>
                                 <div class="col-2" style="text-align: left;">
-                                    <label for="font_color" class="form-label" style="font-size: 20px;">Font color</label>
-                                    <input type="color" class="form-control form-control-lg form-control-color" name="deck_font_color" id="deck_font_color" value="{{deck.deck_font_color}}" onchange="preview_card()"> 
+                                    <label for="font_color" class="form-label cust-btn">Font color</label>
+                                    <input type="color" class="form-control form-control-lg form-control-color" name="deck_font_color" id="deck_font_color" 
+                                    value="{{deck.deck_font_color}}" onchange="preview_card()"> 
                                 </div>
                             </div>
 
                             
-                            <button type="submit" class="col-5 btn btn-primary" style="margin: 50px; font-size: 20px;" id="edit-deck-info">Save</button> 
+                            <button type="submit" class="cust-btn col-5 btn btn-primary" style="margin: 50px;" id="edit-deck-info">Save</button> 
                           
 
                         </div>
@@ -135,45 +102,63 @@
             </div>
         </div>
 
-        <ul class="col-4 list-group" id="flashcard-section" style="border-left: solid 1px lightslategray;">
+        <ul class="col-4 list-group" id="flashcard-section" style="border-left: solid 1px rgb(208, 214, 220);">
             <div id="flashcard-form" style="background-color:black; padding: 50px 75px 50px 75px;">
-                <h3 style="margin-bottom:40px; color: white;">Add a new card</h3>
+                <h3 style="margin-bottom:40px; color: white; text-align: left; margin-left: 20px">Add a new flashcard to this deck:</h3>
                 <form id="create-flashcard" action="/create-flashcard" method="POST">
                     <div class="form-floating" style="margin: 20px;">
                         <input type="text" class="form-control form-control-lg" placeholder="front" id="front" name='front_content' required>
-                        <label for="front">Front</label>
+                        <label for="front" style="font-size: 20px; color: lightslategray;">Front</label>
                     </div>
                     <div class="form-floating" style="margin: 20px;">
                         <input type="text" class="form-control form-control-lg" placeholder="back" id="back" name='back_content' required>
-                        <label for="back">Back</label>
+                        <label for="back" style="font-size: 20px;color: lightslategray;">Back</label>
                     </div>
-                    <button type="submit" style="margin-top:10px; font-size: 20px;" class="btn btn-primary">Add new flashcard</button>
+                    <button type="submit" style="margin-top:10px;" class="cust-btn btn btn-primary">Add new flashcard</button>
                 </form>
             </div>
             {% for flashcard in flashcards %}
-            <li class="list-group-item" id="flashcard-{{ flashcard.flashcard_id }}" style="display: flex; justify-content: space-between;">
-                <h4 class="flashcard-title" id="flashcard-title-{{flashcard.flashcard_id}}" style="display: inline; text-align: center; font-size: 30px;">{{ flashcard.front_content }}</h4>
-                <div>
-                    <button type="button" class="delete-flashcard btn btn-danger" id="{{ flashcard.flashcard_id }}" style="font-size: 20px;">Delete</button>
-                    <button class="btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#update-{{ flashcard.flashcard_id }}"
-                    aria-expanded="false" aria-controls="update-{{ flashcard.flashcard_id }}" style="font-size: 20px;">Edit</button>
-
-                    <div class="collapse" id="update-{{ flashcard.flashcard_id }}">
-                        <div class="card card-body" style="width: 400px;"> 
-                            <div style="text-align:end;">
-                                <button type="button" class="btn-close" data-bs-toggle="collapse" data-bs-target="#update-{{ flashcard.flashcard_id }}"
-                                aria-expanded="false" aria-controls="update-{{ flashcard.flashcard_id }}" aria-label="Close"></button>
-                            </div>
-                            <div>
-                                <img id="uploaded_card_image_{{flashcard.flashcard_id}}" src="{{flashcard.flashcard_img}}" width="350" height="200"/><br>
-                            </div>
-                            <form class="update-flashcard" id="update-flashcard-{{ flashcard.flashcard_id }}" name="{{ flashcard.flashcard_id }}">
-                                Front: <input type="text" id="front_update-{{ flashcard.flashcard_id }}" name='front_content' placeholder="{{ flashcard.front_content }}" value="{{ flashcard.front_content }}"><br>
-                                Back: <input type="text" id="back_update-{{ flashcard.flashcard_id }}" name='back_content' placeholder="{{ flashcard.back_content }}" value="{{ flashcard.back_content }}"><br>
-                                Image: <input type="file" name="flashcard_img" id="flashcard_img_url_{{flashcard.flashcard_id}}" onchange="preview_img('{{ flashcard.flashcard_id }}')"><br>
-                                <button class="btn btn-primary" type="submit">Update flashcard</button>
-                            </form>
+            <li class="list-group-item" id="flashcard-{{ flashcard.flashcard_id }}" style="display: flex; flex-direction:column;  
+                justify-content: space-between;">
+                <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                    <div>
+                        <h4 class="flashcard-title" id="flashcard-title-{{flashcard.flashcard_id}}" style="display: inline; text-align: center; 
+                        font-size: 30px;">{{ flashcard.front_content }}</h4>
+                    </div>
+                    <div>
+                        <button type="button" class=" cust-btn delete-flashcard btn btn-danger" id="{{ flashcard.flashcard_id }}">Delete</button>
+                        <button class="cust-btn btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#update-{{ flashcard.flashcard_id }}"
+                        aria-expanded="false" aria-controls="update-{{ flashcard.flashcard_id }}">Edit</button>
+                    </div>
+                </div>
+                <div class="collapse" id="update-{{ flashcard.flashcard_id }}" style="margin:15px;">
+                    <div class="card card-body" style="width: 100%;"> 
+                        <div style="text-align:end;">
+                            <button type="button" class="btn-close" data-bs-toggle="collapse" data-bs-target="#update-{{ flashcard.flashcard_id }}"
+                            aria-expanded="false" aria-controls="update-{{ flashcard.flashcard_id }}" aria-label="Close"></button>
                         </div>
+                        <div>
+                            <img id="uploaded_card_image_{{flashcard.flashcard_id}}" src="{{flashcard.flashcard_img}}" width="350" height="200"/><br>
+                        </div>
+                        <form class="update-flashcard" id="update-flashcard-{{ flashcard.flashcard_id }}" name="{{ flashcard.flashcard_id }}">
+                            <div class="form-floating" style="margin: 10px;">
+                                <input class="form-control form-control-lg" type="text" id="front_update-{{ flashcard.flashcard_id }}" 
+                                name='front_content' placeholder="{{ flashcard.front_content }}" value="{{ flashcard.front_content }}">
+                                <label for="front_update-{{ flashcard.flashcard_id }}">Front</label>
+                            </div>
+                            <div class="form-floating" style="margin: 10px;">
+                                <input class="form-control form-control-lg" type="text" id="back_update-{{ flashcard.flashcard_id }}" 
+                                name='back_content' placeholder="{{ flashcard.back_content }}" value="{{ flashcard.back_content }}">
+                                <label for="back_update-{{ flashcard.flashcard_id }}">Back</label>
+                            </div>
+                            <div class="input-group" style="margin: 10px; width: 550px; height: 40px;">
+                                <input type="file" class="form-control form-control-lg" name="flashcard_img" id="flashcard_img_url_{{flashcard.flashcard_id}}" 
+                                onchange="preview_img('{{ flashcard.flashcard_id }}')">
+                            </div>
+                            <div style="margin-top: 20px;">
+                                <button class="cust-btn btn btn-primary" type="submit">Update flashcard</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </li>

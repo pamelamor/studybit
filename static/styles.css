@@ -259,14 +259,28 @@
   border-bottom-right-radius: 40px; 
 }
 
+.cust-btn{
+  font-size: 20px;
+}
 
+#deck-form{
+  display: flex; 
+  flex-direction:column; 
+  justify-content: start; 
+  height:90%;
+}
 
+#imgcard_preview{
+  height:50%; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+}
 
-
-
-
-
-
+#edit-section, #flashcard-section{
+  max-height:100%;
+  overflow-y: auto;
+}
 
 
 /* Study session flipping mechanics */
@@ -301,4 +315,11 @@
 
 .card-back{
     transform: rotateY(180deg);
+}
+
+.update-flashcard{
+  display: flex; 
+  flex-direction:column;  
+  justify-content: left; 
+  padding: 20px;
 }
