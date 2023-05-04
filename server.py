@@ -187,14 +187,13 @@ def edit_deck(deck_id):
                                             cloud_name=CLOUDINARY_NAME)
             deck_img_url = result['secure_url']
 
-        deck_font = request.form.get('deck_font')
         deck_font_color = request.form.get('deck_font_color')
+        deck_font = request.form.get('deck_font')
         deck_color = request.form.get('deck_color')
         crud.update_deck_by_id(deck_id,deck_name,deck_img_url, deck_font, deck_font_color, deck_color)
-        # flash("Deck information has been updated.")
 
         return jsonify({'deck_name': deck_name, "deck_img_url": deck_img_url, "deck_font": deck_font, 
-                        "deck_font_color": deck_font_color, "deck_color": deck_color, "msg": "Deck information has been updated."})
+                        "deck_font_color": deck_font_color, "deck_color": deck_color, "msg": "Deck information updated."})
 
 
 @app.route('/create-flashcard', methods=['POST'])
@@ -246,9 +245,8 @@ def edit_flashcard(flashcard_id):
 
 
     crud.update_flashcard_by_id(flashcard_id, front, back, image)
-    flash("Flashcard information has been updated.")
 
-    return {'front_content': front, 'back_content': back, 'flashcard_img': image}
+    return {'front_content': front, 'back_content': back, 'flashcard_img': image, "msg": "Flashcard information updated."}
 
 
 ###################################################### STUDY SESSION ROUTES
@@ -260,9 +258,16 @@ def study_session(deck_id):
 
         deck = crud.get_deck_by_id(deck_id)
         flashcards = crud.get_flashcards_by_deck(deck_id)
-        i = -1
-        
-        return render_template('studysession.html', deck=deck, flashcards=flashcards, i=i)
+
+        if(flashcards == []):
+            flash('This deck has does not have flashcards yet!')
+            return redirect('/workspace')
+
+        else:
+
+            i = -1
+
+            return render_template('studysession.html', deck=deck, flashcards=flashcards, i=i)
     
     elif request.method == 'POST':
 

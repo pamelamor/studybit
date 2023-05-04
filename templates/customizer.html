@@ -23,6 +23,9 @@
     <div class="row" style="height:100%;">
         
         <div class="col-8" id="edit-section" style="height:100%;">  
+            <div class="row" style="display: flex; justify-content: center; background-color: black;">
+                <p id="ajax-flash-msg-customizer" class="col-5 flash-msg alert alert-warning" style="display: none; text-align: center;" role="alert"></p>
+            </div>
 
             <div class="row customizer-nav" id="title" style="height:10%; align-content: center;">
                 <div class="col-3">
@@ -156,7 +159,8 @@
                                 onchange="preview_img('{{ flashcard.flashcard_id }}')">
                             </div>
                             <div style="margin-top: 20px;">
-                                <button class="cust-btn btn btn-primary" type="submit">Update flashcard</button>
+                                <button class="cust-btn btn btn-primary" type="submit" class="btn-close" data-bs-toggle="collapse" data-bs-target="#update-{{ flashcard.flashcard_id }}"
+                                aria-expanded="false" aria-controls="update-{{ flashcard.flashcard_id }}" aria-label="Close">Update flashcard</button>
                             </div>
                         </form>
                     </div>

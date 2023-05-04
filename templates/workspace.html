@@ -49,9 +49,27 @@
                     <div id="deck-btns">
                         <a href="/study-session/{{deck.deck_id}}" class="btn btn-primary work-btn">Practice</a> 
                         <a id="card-edit" href="/edit-deck/{{ deck.deck_id }}" class="btn btn-success work-btn">Edit</a>
-                        <button type="button" id="{{ deck.deck_id }}" class="delete-deck btn btn-danger work-btn">Delete</button>
+                        <button type="button" id="{{ deck.deck_id }}" class="btn btn-danger work-btn" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ deck.deck_id }}">Delete</button>
                     </div>
                 </div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="deleteModal-{{ deck.deck_id }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-2" id="deleteModalLabel-{{ deck.deck_id }}" style="font-size: 30px;">Delete Deck</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="font-size: 24px;">
+                    Are you sure you want to delete deck '{{deck.deck_name}}'?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="{{ deck.deck_id }}" class="delete-deck btn btn-danger" style="font-size: 20px;" data-bs-dismiss="modal" 
+                    aria-label="Delete">Delete</button>
+                </div>
+            </div>
             </div>
         </div>
         {% endfor %}

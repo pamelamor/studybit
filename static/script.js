@@ -98,7 +98,7 @@ if(updateDeck){
                                     <div class="col-4" style="text-align: left; margin-left: 130px;">
                                         <h2>${responseData['deck_name']} Deck Design Space</h2>
                                     </div>`;
-                const flash = document.getElementById("ajax-flash")
+                const flash = document.getElementById("ajax-flash-msg-customizer")
                 flash.innerHTML = responseData['msg'];
                 flash.style.display = 'block';
             });
@@ -179,7 +179,12 @@ for(const flashcard of updateFlashcards){
             .then((responseData) => {
                 console.log(responseData);
                 const flashcardName = document.getElementById(`flashcard-title-${flashcard_id}`);
-                flashcardName.innerHTML = `<h4 id="flashcard-title" style="display: inline;">${responseData['front_content']}</h4>`
+                flashcardName.innerHTML =  `<h4 class="flashcard-title" id="flashcard-title-${flashcard_id}" style="display: inline; text-align: center; 
+                                            font-size: 30px;">${responseData['front_content']}</h4>`;
+
+                const flash = document.getElementById("ajax-flash-msg-customizer")
+                flash.innerHTML = responseData['msg'];
+                flash.style.display = 'block';
             })
 
     });
