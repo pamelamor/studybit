@@ -231,6 +231,8 @@ if(nextBtn){
                     const done = document.getElementById('finished')
                     const next = document.getElementById('next-btn')
                     const not_done = document.getElementById('unfinished')
+                    const progress_bar = document.querySelector('.progress-bar')
+                    progress_bar.style.width = `${responseData['progress']}%`
                     next.style.display = 'none';
                     not_done.style.display = 'none';
                     exit.style.display = 'none';
@@ -245,6 +247,8 @@ if(nextBtn){
                     const img = document.getElementById('flashcard_img');
                     console.log(img)
                     img.innerHTML = `<img src=${responseData['img']} class="card-img-top" alt="..." width="300" height="300">`;
+                    const progress_bar = document.querySelector('.progress-bar')
+                    progress_bar.style.width = `${responseData['progress']}%`
                 }  
             });
     });

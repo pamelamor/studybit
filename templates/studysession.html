@@ -62,8 +62,8 @@
         <div class="row" id="next-btn" style="display:block; display: flex; justify-content: center;">
             <button class="col-7 session-btn next btn btn-primary" id={{deck.deck_id}}>Next</button>
         </div>
-        <div class="progress" role="progressbar" aria-label="Default striped example" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
-            <div class="progress-bar progress-bar-striped" style="width: 10%"></div>
+        <div class="progress" role="progressbar" aria-label="Default striped example" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar progress-bar-striped" style="width: {{ progress }}%"></div>
         </div>
     </div>
 </div>

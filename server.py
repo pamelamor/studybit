@@ -264,10 +264,10 @@ def study_session(deck_id):
             return redirect('/workspace')
 
         else:
-
             i = -1
+            progress = -( i / len(flashcards)) * 100
 
-            return render_template('studysession.html', deck=deck, flashcards=flashcards, i=i)
+            return render_template('studysession.html', deck=deck, flashcards=flashcards, i=i, progress=progress)
     
     elif request.method == 'POST':
 
@@ -275,13 +275,17 @@ def study_session(deck_id):
         
         i = int(request.json.get('i'))
         if i - 1 < -len(flashcards):
+            progress = 100
 
-            return jsonify({'msg': "Finished!"})
+            return jsonify({'msg': "Finished!", "progress": progress})
         else:
+            i -= 1
+            next_flashcard = flashcards[i]
+            progress = -( i / len(flashcards)) * 100
+            print('*********************')
+            print(len(flashcards))
 
-            next_flashcard = flashcards[i-1]
-
-            return jsonify({'i': i - 1, 'front': next_flashcard.front_content, 'back': next_flashcard.back_content, 'img': next_flashcard.flashcard_img})
+            return jsonify({'i': i , 'front': next_flashcard.front_content, 'back': next_flashcard.back_content, 'img': next_flashcard.flashcard_img, "progress": progress})
 
 
 

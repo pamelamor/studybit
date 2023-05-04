@@ -45,11 +45,15 @@
             <div class="card" style="margin: 20px; padding: 20px; border-radius: 15px;">
                 <img src="{{deck.deck_img_url}}" class="card-img-top" style="height: 16rem;" alt="Image"> 
                 <div class="card-body" style="background-color: {{ deck.deck_color }} ">
-                    <h5 id="card-title" style=" text-align: left;  margin-top: 10px; font-size: 26px; font-family: '{{ deck.deck_font }}' ; color: {{ deck.deck_font_color }};" class="card-title">{{ deck.deck_name }}</h5>
+                    <h5 id="card-title" style=" text-align: left;  margin-top: 10px; font-size: 26px; font-family: '{{ deck.deck_font }}' ; 
+                    color: {{ deck.deck_font_color }};" class="card-title">{{ deck.deck_name }}</h5>
                     <div id="deck-btns">
-                        <a href="/study-session/{{deck.deck_id}}" class="btn btn-primary work-btn">Practice</a> 
+                        <a href="/study-session/{{deck.deck_id}}" class="btn btn-primary work-btn">Practice <span class="badge" style="background-color: white; 
+                        color:black">{{deck.flashcards|length}}</span>
+                        </a> 
                         <a id="card-edit" href="/edit-deck/{{ deck.deck_id }}" class="btn btn-success work-btn">Edit</a>
-                        <button type="button" id="{{ deck.deck_id }}" class="btn btn-danger work-btn" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ deck.deck_id }}">Delete</button>
+                        <button type="button" id="{{ deck.deck_id }}" class="btn btn-danger work-btn" data-bs-toggle="modal" 
+                        data-bs-target="#deleteModal-{{ deck.deck_id }}">Delete</button>
                     </div>
                 </div>
             </div>
