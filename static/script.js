@@ -1,6 +1,5 @@
 'use strict';
 
-
 //###################################################################### DECK
 //Delete deck from user workspace
 const deleteDecks = document.querySelectorAll('button.delete-deck');
@@ -93,8 +92,15 @@ if(updateDeck){
             .then((responseData) => {
                 console.log(responseData);
                 const deckName = document.getElementById('title');
-                deckName.innerHTML = `<h2>${responseData['deck_name']} Deck Design Space</h2>
-                                      <a href="/workspace">Return to your decks</a>`;
+                deckName.innerHTML =`<div class="col-3">
+                                            <a href="/workspace" class="btn btn-primary" style="margin-left: 10px; font-size: 20px;">Return to your decks</a>
+                                    </div>
+                                    <div class="col-4" style="text-align: left; margin-left: 130px;">
+                                        <h2>${responseData['deck_name']} Deck Design Space</h2>
+                                    </div>`;
+                const flash = document.getElementById("ajax-flash")
+                flash.innerHTML = responseData['msg'];
+                flash.style.display = 'block';
             });
     });
 }
@@ -237,16 +243,5 @@ if(nextBtn){
     });
 }
 
-
-//Spline canvas scene
-import {Application} from '@splinetool/runtime';
-
-const canvas = document.getElementById('canvas3d');
-const app = new Application(canvas);
-app
-    .load('https://prod.spline.design/cjO2PR-vuPfOFfea/scene.splinecode')
-
-
-//Scroll arrow fade-out
 
 

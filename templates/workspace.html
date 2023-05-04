@@ -43,9 +43,9 @@
         {% for deck in decks %}
         <div class="col" id="deck-{{deck.deck_id}}">
             <div class="card" style="margin: 20px; padding: 20px; border-radius: 15px;">
-                <img src="{{deck.deck_img_url}}" class="card-img-top" style="height: 12rem;" alt="Image"> 
+                <img src="{{deck.deck_img_url}}" class="card-img-top" style="height: 16rem;" alt="Image"> 
                 <div class="card-body" style="background-color: {{ deck.deck_color }} ">
-                    <h5 id="card-title" style=" margin-top: 10px; font-size: 26px; font-family: '{{ deck.deck_font }}' ; color: {{ deck.deck_font_color }};" class="card-title">{{ deck.deck_name }}</h5>
+                    <h5 id="card-title" style=" text-align: left;  margin-top: 10px; font-size: 26px; font-family: '{{ deck.deck_font }}' ; color: {{ deck.deck_font_color }};" class="card-title">{{ deck.deck_name }}</h5>
                     <div id="deck-btns">
                         <a href="/study-session/{{deck.deck_id}}" class="btn btn-primary work-btn">Practice</a> 
                         <a id="card-edit" href="/edit-deck/{{ deck.deck_id }}" class="btn btn-success work-btn">Edit</a>

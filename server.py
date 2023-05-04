@@ -191,10 +191,10 @@ def edit_deck(deck_id):
         deck_font_color = request.form.get('deck_font_color')
         deck_color = request.form.get('deck_color')
         crud.update_deck_by_id(deck_id,deck_name,deck_img_url, deck_font, deck_font_color, deck_color)
-        flash("Deck information has been updated.")
+        # flash("Deck information has been updated.")
 
         return jsonify({'deck_name': deck_name, "deck_img_url": deck_img_url, "deck_font": deck_font, 
-                        "deck_font_color": deck_font_color, "deck_color": deck_color})
+                        "deck_font_color": deck_font_color, "deck_color": deck_color, "msg": "Deck information has been updated."})
 
 
 @app.route('/create-flashcard', methods=['POST'])
