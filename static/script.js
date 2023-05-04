@@ -197,7 +197,7 @@ if(card){
 }
 
 
-//Switch the following card in the stack and collect user answer data 
+//Switch the following card in the stack
 const nextBtn = document.querySelector('.next');
 
 if(nextBtn){
@@ -224,7 +224,9 @@ if(nextBtn){
                     console.log(responseData['msg']);
                     const exit = document.getElementById('exit')
                     const done = document.getElementById('finished')
+                    const next = document.getElementById('next-btn')
                     const not_done = document.getElementById('unfinished')
+                    next.style.display = 'none';
                     not_done.style.display = 'none';
                     exit.style.display = 'none';
                     done.style.display = 'block';

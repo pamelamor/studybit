@@ -17,30 +17,36 @@
 
 {% block body %}
 <div class="container-fluid">
-    <div class="row fullview-row" style="background-color: red;">
+    <div class="row fullview" style="flex-direction:column;  justify-content: space-between;">
 
-        <div class="row" style="background-color: orange;">
-            <div class="col-1">
-                <h1 id="deck.deck_id" style="font-family: '{{deck.deck_font}}';">{{deck.deck_name}}</h1>
-                <a href="/workspace" class="btn btn-primary" style="display:block;" id="exit">Exit session</a>
+        <div class="row nav" style="justify-content: space-between; padding: 0 50px;" id="workspace-nav">
+            <div class="col-6" style="text-align:left; margin-top: 10px;">
+                <h1 id="deck.deck_id" style="font-family: '{{deck.deck_font}}'; color: white;">{{deck.deck_name}}</h1>
+            </div>
+            <div class="col-1" >
+                <a href="/workspace" class="session-btn btn btn-danger" style="display:block;" id="exit">Exit session</a>
             </div>
         </div>
 
-        <div class="row" style="background-color: blue; justify-content:center;">
-            <div class="col-8" id="finished" style="display:none; background-color: pink; padding: 30px;">
-                <h1>Review completed!</h1>
-                <a href="/workspace">Return to workspace</a>
+        <div class="row" style=" justify-content:center;">
+            <div class="col-5" id="finished" style="display:none; text-align: center; background-color: pink; padding: 50px;">      
+                <h1 style="margin: 10px; text-align: center;">Review completed!</h1>
+                <div style="margin: 20px; text-align: center; padding: 10px;">
+                    <a href="/workspace" class="session-btn btn btn-primary" style="margin-right: 30px">Exit session</a>
+                    <a href="/study-session/{{deck.deck_id}}" class="session-btn btn btn-primary">Restart</a>
+                </div>
             </div>
 
-            <div class="col-8 card-container" id="unfinished" style="display:block; background-color: pink;">
+            <div class="col-8 card-container" id="unfinished" style="display:block;">
                 <div class="card_inner">
-                    <div class="card card-front" style="background-color: {{deck.deck_color}}; font-family: '{{deck.deck_font}}'; color: {{deck.deck_font_color}}; padding: 30px;">
-                        <div class="row" style="justify-content: center;" >
-                            <div class="col-5" id="flashcard_img">      
+                    <div class="card card-front" style="background-color: {{deck.deck_color}}; font-family: '{{deck.deck_font}}'; color: {{deck.deck_font_color}}; 
+                        padding: 100px;">
+                        <div class="row" style="justify-content: center; background-color: lightpink;">
+                            <div class="col-6" id="flashcard_img">      
                                 <img src="{{flashcards[i].flashcard_img}}" class="card-img-top" alt="..." width="300" height="300">
                             </div>
                         </div>
-                        <div class="row card-body" id="front-side">
+                        <div class="row card-body" id="front-side" style="align-items: end; background-color: lightskyblue;">
                             <h1 class="card-title" name="{{i}}" id="front_content">{{flashcards[i].front_content}}</h1>
                         </div>
                     </div>
@@ -53,24 +59,12 @@
                 </div>
             </div>
         </div>
-
-        <div class="col-8 progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-            <div class="progress-bar" style="width: 0%"></div>
+        <div class="row" id="next-btn" style="display:block; display: flex; justify-content: center;">
+            <button class="col-7 session-btn next btn btn-primary" id={{deck.deck_id}}>Next</button>
         </div>
-
-        <div class="row" style="background-color: orange;justify-content:center;">
-            <div class="col-5" style="display:flex; justify-content:space-between;">
-                
-                <div>
-                    <button class="btn btn-danger">Hard</button>
-                    <button class="btn btn-primary">Good</button>
-                    <button class="btn btn-success">Easy</button>
-                </div>
-
-                <button class="next btn btn-primary" id={{deck.deck_id}}>Next</button>
-            </div>
+        <div class="progress" role="progressbar" aria-label="Default striped example" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar progress-bar-striped" style="width: 10%"></div>
         </div>
-
     </div>
 </div>
 
