@@ -42,7 +42,7 @@
     <div class="row row-cols-4" style="margin-left: 75px; margin-right: 75px;">
         {% for deck in decks %}
         <div class="col" id="deck-{{deck.deck_id}}">
-            <div class="card" style="margin: 20px; padding: 20px; border-radius: 15px;">
+            <div class="card" style="margin: 20px; padding: 20px; border-radius: 15px;background-color: {{ deck.deck_color }} ">
                 <img src="{{deck.deck_img_url}}" class="card-img-top" style="height: 16rem;" alt="Image"> 
                 <div class="card-body" style="background-color: {{ deck.deck_color }} ">
                     <h5 id="card-title" style=" text-align: left;  margin-top: 10px; font-size: 26px; font-family: '{{ deck.deck_font }}' ; 

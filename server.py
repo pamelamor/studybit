@@ -275,9 +275,7 @@ def study_session(deck_id):
         
         i = int(request.json.get('i'))
         if i - 1 < -len(flashcards):
-            progress = 100
-
-            return jsonify({'msg': "Finished!", "progress": progress})
+            return jsonify({'msg': "Finished!"})
         else:
             i -= 1
             next_flashcard = flashcards[i]
