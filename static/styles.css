@@ -14,7 +14,7 @@
 /* Homepage */
 
 .nav{
-    height: 100px;
+    height: 150px;
     align-items: center;
     position: absolute;
 }
@@ -23,41 +23,47 @@
     font-size: 30px;
     color: white;
     margin-right: 50px;
+    font-family: Montserrat;
+    font-weight: 400;
 }
 
 #nav_logo{
   position: absolute; 
-  height:100px; 
+  height:150px; 
   margin-left: 50px;
   display:flex; 
   justify-content: center; 
   align-items: center; 
-  color: lightgreen;
+  color: #329F5B;
   font-family: Montserrat;
+  font-weight: 700;
 }
 
 .nav-link{
-    color:white;
+  color:white;
 }
 
 .nav-link:hover{
-    color: #90ee90;
+  color: black;
+  background-color: white;
 }
 
 
-#welcome,#information{
-    background-color:black;
-    color: white;
+#welcome, #information{
+  background-color:black;
+  color: white;
 }
 
 .on-top{
-    position: absolute;
+  position: absolute;
 }
 
 .animation{
   font-size: 120px;
   opacity: 0;
   position: absolute;
+  font-family: Montserrat;
+  font-weight: 500;
 }
 
 #english{
@@ -142,9 +148,9 @@
   }
 }
 
-                                                  /* Arrow animation */
+/* Arrow animation */
 
-.arrow,
+/* .arrow,
 .arrow:before {
   position: absolute;
   left: 50%;
@@ -185,7 +191,7 @@
     opacity: 0;
       transform: translate(-10px, -10px);
   }
-}
+} */
                                     
   
 /* Sign-in & Signup */
@@ -194,10 +200,28 @@
   background-color: black;
 }
 
+#canvas3d_two {
+  background-color: black;
+  animation: fadeInAnimation ease-in 3s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+0% {
+  opacity: 0;
+}
+100% {
+  opacity: 1;
+}
+}
+
 #logup-card{
   width:30%; 
   height: 60%; 
   padding: 30px;
+  border-radius: 20px;
+  position: absolute;
 }
 
 #logup-logo{
@@ -206,6 +230,7 @@
   align-items: center; 
   margin-top: 90px;
   font-family: Montserrat;
+  font-weight: 700;
   font-size: 40px;
 }
 
