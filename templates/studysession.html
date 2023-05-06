@@ -16,7 +16,7 @@
 
 
 {% block body %}
-<div class="container-fluid">
+<div class="container-fluid" style="background-color: #141414;">
     <!-- <canvas id="confetti" style="position: absolute;"></canvas> -->
     <div class="row fullview" style="align-items: start;">
 
@@ -45,7 +45,7 @@
                             padding: 100px 20px 50px 20px;">
                             <div class="row" style="justify-content: center;">
                                 <div class="col-6" id="flashcard_img">      
-                                    <img src="{{flashcards[i].flashcard_img}}" class="card-img-top" alt="..." width="300" height="300">
+                                    <img src="{{flashcards[i].flashcard_img}}" class="card-img-top" alt="..." width="300" height="300" style="border-radius: 20px;">
                                 </div>
                             </div>
                             <div class="row card-body" id="front-side" style="display:flex; flex-direction: column; justify-content: end; ">
@@ -63,7 +63,7 @@
             </div>
             <div class="row" id="pro_next" style="display: flex; align-items: center; justify-content: space-evenly;">
                 <div class="progress col-7" role="progressbar" aria-label="Default striped example" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100">
-                    <div class="progress-bar progress-bar-striped" style="width: {{ progress }}%"></div>
+                    <div class="progress-bar progress-bar-striped bg-success" style="width: {{ progress }}%"></div>
                 </div>
                 <div class="row" id="next-btn" style="display:block;">
                     <button class="col-7 session-btn next btn btn-primary" id={{deck.deck_id}}>Next</button>

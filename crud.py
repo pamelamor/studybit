@@ -40,7 +40,7 @@ def remove_user_by_id(user_id):
 
 
 ################################################################################################################################################
-def create_deck(name, user_id, img_url='/static/placeholder.png.webp', font='Helvetica Neue', font_color='#000000', deck_color='#ffffff'):
+def create_deck(name, user_id, img_url='/static/placeholder.png.webp', font='Montserrat', font_color='#ffffff', deck_color='#000000'):
     """Create and return a new deck."""
 
     deck = Deck(deck_name=name, user_id=user_id, deck_img_url=img_url, deck_font=font, deck_font_color=font_color, deck_color=deck_color)

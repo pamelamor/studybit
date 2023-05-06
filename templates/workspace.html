@@ -12,21 +12,28 @@
     {% endfor %} 
 {% endblock %}
 
-{% block title %} Web App Name {% endblock %}
+{% block title %} Studybit {% endblock %}
 
-{% block head %}{% endblock %}
+{% block head %}
+<style>
+    body{
+        background-color: #141414;
+    }
+</style>
+
+{% endblock %}
 
 
 {% block body %}
 
-<div class="container-fluid fullview">
+<div class="container-fluid fullview" style="background-color: #141414;">
 
     <div class="row nav" id="workspace-nav">
         <div class="col-2" id="logup-logo" style=" margin-top: 0;">
-            <a style="text-decoration: none; color: white;" href="/">Studybit.</a>
+            <a style="text-decoration: none; color: #329F5B;" href="/">Studybit.</a>
         </div>
-        <div class="col-6" style="color: white;">
-            <h1>{{ name }}'s Workspace</h1>
+        <div class="col-6">
+            <h1 style="color: white; font-family: Montserrat; font-weight: 500;" >{{ name }}'s Workspace</h1>
         </div>
         <div class="col-2">
             <a class="btn btn-danger work-btn" href="/" name="logout">Log Out</a><br> 
@@ -34,16 +41,21 @@
     </div>
 
     <div class="row" style="padding: 50px">
-        <div class="col-2">
-            <a href="/create-deck" id="create-deck" class="btn btn-primary work-btn">Create a Deck</a>
+        <div class="col-2 fs-3">
+            <a href="/create-deck" id="create-deck" class="text-decoration-none d-inline-flex align-items-center" style="color: white; font-family: Montserrat; font-weight: 500;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="#ffffff" class="bi bi-plus-square-fill" viewBox="0 0 16 16" style="margin-right: 10px;">
+                <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"/>
+                </svg> 
+                Add a deck 
+            </a>
         </div>
     </div>
 
-    <div class="row row-cols-4" style="margin-left: 75px; margin-right: 75px;">
+    <div class="row row-cols-3" style="margin-left: 75px; margin-right: 75px;">
         {% for deck in decks %}
         <div class="col" id="deck-{{deck.deck_id}}">
-            <div class="card" style="margin: 20px; padding: 20px; border-radius: 15px;background-color: {{ deck.deck_color }} ">
-                <img src="{{deck.deck_img_url}}" class="card-img-top" style="height: 16rem;" alt="Image"> 
+            <div class="card" style="margin: 20px; width: 35rem; padding: 20px; border-radius: 15px;background-color: {{ deck.deck_color }}; box-shadow: 0px 3px 18px 3px rgba(0,0,0, 0.2);">
+                <img src="{{deck.deck_img_url}}" class="card-img-top" style="height: 16rem; border-radius: 10px;" alt="Image"> 
                 <div class="card-body" style="background-color: {{ deck.deck_color }} ">
                     <h5 id="card-title" style=" text-align: left;  margin-top: 10px; font-size: 26px; font-family: '{{ deck.deck_font }}' ; 
                     color: {{ deck.deck_font_color }};" class="card-title">{{ deck.deck_name }}</h5>
@@ -51,9 +63,17 @@
                         <a href="/study-session/{{deck.deck_id}}" class="btn btn-primary work-btn">Practice <span class="badge" style="background-color: white; 
                         color:black">{{deck.flashcards|length}}</span>
                         </a> 
-                        <a id="card-edit" href="/edit-deck/{{ deck.deck_id }}" class="btn btn-success work-btn">Edit</a>
-                        <button type="button" id="{{ deck.deck_id }}" class="btn btn-danger work-btn" data-bs-toggle="modal" 
-                        data-bs-target="#deleteModal-{{ deck.deck_id }}">Delete</button>
+                        <a id="card-edit" href="/edit-deck/{{ deck.deck_id }}" class="btn btn-success work-btn d-inline-flex align-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16" style="margin-right: 5px;">
+                                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                            </svg> 
+                          Edit 
+                        </a>
+                        <button type="button" id="{{ deck.deck_id }}" class="btn btn-danger work-btn d-inline-flex align-items-center" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ deck.deck_id }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16" style="margin-right: 5px;">
+                                <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
+                            </svg>Delete 
+                        </button>
                     </div>
                 </div>
             </div>
@@ -67,11 +87,16 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" style="font-size: 24px;">
-                    Are you sure you want to delete deck '{{deck.deck_name}}'?
+                    Are you sure you want to delete deck <strong>"{{deck.deck_name}}"</strong>?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="{{ deck.deck_id }}" class="delete-deck btn btn-danger" style="font-size: 20px;" data-bs-dismiss="modal" 
-                    aria-label="Delete">Delete</button>
+                    <button type="button" id="{{ deck.deck_id }}" class="delete-deck btn btn-danger d-inline-flex align-items-center" style="font-size: 20px;" data-bs-dismiss="modal" 
+                    aria-label="Delete">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16" style="margin-right: 5px;">
+                            <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
+                        </svg>
+                       Delete 
+                    </button>
                 </div>
             </div>
             </div>

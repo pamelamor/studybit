@@ -19,13 +19,13 @@
 {% block body %}
 
 <div class="container-fluid fullview">
+    <div class="row" style="bottom: 0; left: 0; position: absolute; min-width: 100%;">
+        <p id="ajax-flash-msg-customizer" class="col-5 flash-msg alert alert-warning fs-4" style="display: none; text-align: center;" role="alert"></p>
+    </div>
 
     <div class="row" style="height:100%;">
         
-        <div class="col-8" id="edit-section" style="height:100%;">  
-            <div class="row" style="display: flex; justify-content: center; background-color: black;">
-                <p id="ajax-flash-msg-customizer" class="col-5 flash-msg alert alert-warning" style="display: none; text-align: center;" role="alert"></p>
-            </div>
+        <div class="col-8" id="edit-section" style="height:100%; background-color: #141414;">  
 
             <div class="row customizer-nav" id="title" style="height:10%; align-content: center;">
                 <div class="col-3">
@@ -48,7 +48,7 @@
                             font-family: '{{deck.deck_font}}'; color: {{deck.deck_font_color}}; padding: 30px; height: 400px">
                             <div class="row" style="justify-content: center; padding:  30px 0px;">
                                 <div class="col-5" id="flashcard_img">      
-                                    <img src="/static/placeholder.png.webp" class="card-img-top" alt="..." width="350" height="150">
+                                    <img src="/static/placeholder.png.webp" class="card-img-top" alt="..." width="350" height="150" style="border-radius: 15px;">
                                 </div>
                             </div>
                             <div class="row card-body" id="front-side" style="align-items: center;">
@@ -61,7 +61,7 @@
                 <div class="row" style="height:50%; display: flex; justify-content: center; align-items: start;">
                     <form class=" row form-floating update-deck" id={{deck.deck_id}} enctype="multipart/form-data" method="POST"
                     style="justify-content: center;">
-                        <div class="col-8">
+                        <div class="col-8" style="background-color: white; border-radius: 20px;">
                             <div class="form-floating" style="margin: 15px">
                                 <input type="text" class="form-control form-control-lg" id="deck_name" name="deck_name_" value="{{deck.deck_name}}" 
                                 placeholder={{deck.deck_name}}>
@@ -84,19 +84,19 @@
                                     <input type="file" class="form-control form-control-lg" name="deck_img" id="deck_img_url" onchange="preview()">
                                 </div>
                                 <div class="col-2" style="text-align: left;">
-                                    <label for="deck_color" class="form-label cust-btn">Base color</label>
+                                    <label for="deck_color" class="form-label cust-btn" style="color: white">Base color</label>
                                     <input type="color" class="form-control form-control-lg form-control-color" name="deck_color" id="deck_color" 
                                     value="{{deck.deck_color}}" onchange="preview_card()">
                                 </div>
                                 <div class="col-2" style="text-align: left;">
-                                    <label for="font_color" class="form-label cust-btn">Font color</label>
+                                    <label for="font_color" class="form-label cust-btn" style="color: white">Font color</label>
                                     <input type="color" class="form-control form-control-lg form-control-color" name="deck_font_color" id="deck_font_color" 
                                     value="{{deck.deck_font_color}}" onchange="preview_card()"> 
                                 </div>
                             </div>
 
                             
-                            <button type="submit" class="cust-btn col-5 btn btn-primary" style="margin: 50px;" id="edit-deck-info">Save</button> 
+                            <button type="submit" class="cust-btn col-5 btn btn-dark" style="margin: 25px;" id="edit-deck-info">Save</button> 
                           
 
                         </div>
@@ -105,7 +105,7 @@
             </div>
         </div>
 
-        <ul class="col-4 list-group" id="flashcard-section" style="border-left: solid 1px rgb(208, 214, 220);">
+        <ul class="col-4 list-group" id="flashcard-section">
             <div id="flashcard-form" style="background-color:black; padding: 50px 75px 50px 75px;">
                 <h3 style="margin-bottom:40px; color: white; text-align: left; margin-left: 20px">Add a new flashcard to this deck:</h3>
                 <form id="create-flashcard" action="/create-flashcard" method="POST">
@@ -129,9 +129,15 @@
                         font-size: 30px;">{{ flashcard.front_content }}</h4>
                     </div>
                     <div>
-                        <button type="button" class=" cust-btn delete-flashcard btn btn-danger" id="{{ flashcard.flashcard_id }}">Delete</button>
-                        <button class="cust-btn btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#update-{{ flashcard.flashcard_id }}"
-                        aria-expanded="false" aria-controls="update-{{ flashcard.flashcard_id }}">Edit</button>
+                        <button type="button" class=" cust-btn delete-flashcard btn btn-danger d-inline-flex align-items-center" id="{{ flashcard.flashcard_id }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16" style="margin-right: 5px;">
+                                <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
+                            </svg>Delete</button>
+                        <button class="cust-btn btn btn-success d-inline-flex align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#update-{{ flashcard.flashcard_id }}"
+                        aria-expanded="false" aria-controls="update-{{ flashcard.flashcard_id }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16" style="margin-right: 5px;">
+                                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                            </svg> Edit</button>
                     </div>
                 </div>
                 <div class="collapse" id="update-{{ flashcard.flashcard_id }}" style="margin:15px;">
