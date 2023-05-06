@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "@splinetool/runtime": "^0.9.314",
-    "bootstrap-icons": "^1.10.5"
+    "@splinetool/runtime": "^0.9.314"
   }
 }
