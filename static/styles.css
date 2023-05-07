@@ -288,6 +288,8 @@
 
 .cust-btn, .session-btn{
   font-size: 20px;
+  font-family: Montserrat;
+  font-weight: 500;
 }
 
 #deck-form{

@@ -18,7 +18,7 @@
 
 {% block body %}
 
-<div class="container-fluid fullview">
+<div class="container-fluid fullview" style="background-color: #141414;">
     <div class="row" style="bottom: 0; left: 0; position: absolute; min-width: 100%;">
         <p id="ajax-flash-msg-customizer" class="col-5 flash-msg alert alert-warning fs-4" style="display: none; text-align: center;" role="alert"></p>
     </div>
@@ -31,7 +31,7 @@
                 <div class="col-3">
                     <a href="/workspace" class="cust-btn btn btn-primary" style="margin-left: 10px;">Return to your decks</a>
                 </div>
-                <div class="col-4" style="text-align: left; margin-left: 130px;">
+                <div class="col-5" style="text-align: left; margin-left: 130px; font-family: Montserrat; font-weight: 600;">
                     <h2>{{ deck.deck_name }} Deck Design Space</h2>
                 </div>
             </div> 
@@ -61,7 +61,7 @@
                 <div class="row" style="height:50%; display: flex; justify-content: center; align-items: start;">
                     <form class=" row form-floating update-deck" id={{deck.deck_id}} enctype="multipart/form-data" method="POST"
                     style="justify-content: center;">
-                        <div class="col-8" style="background-color: white; border-radius: 20px;">
+                        <div class="col-8" style="border-radius: 20px;">
                             <div class="form-floating" style="margin: 15px">
                                 <input type="text" class="form-control form-control-lg" id="deck_name" name="deck_name_" value="{{deck.deck_name}}" 
                                 placeholder={{deck.deck_name}}>
@@ -96,7 +96,7 @@
                             </div>
 
                             
-                            <button type="submit" class="cust-btn col-5 btn btn-dark" style="margin: 25px;" id="edit-deck-info">Save</button> 
+                            <button type="submit" class="cust-btn col-5 btn btn-primary" style="margin: 25px;" id="edit-deck-info">Save</button> 
                           
 
                         </div>
@@ -105,9 +105,9 @@
             </div>
         </div>
 
-        <ul class="col-4 list-group" id="flashcard-section">
+        <ul class="col-4 list-group" id="flashcard-section" style="background-color: #141414; border-left:solid rgb(66, 72, 77) 1px;">
             <div id="flashcard-form" style="background-color:black; padding: 50px 75px 50px 75px;">
-                <h3 style="margin-bottom:40px; color: white; text-align: left; margin-left: 20px">Add a new flashcard to this deck:</h3>
+                <h3 style="margin-bottom:40px; color: white; text-align: left; margin-left: 20px; font-family: Montserrat;">Add a new flashcard to this deck:</h3>
                 <form id="create-flashcard" action="/create-flashcard" method="POST">
                     <div class="form-floating" style="margin: 20px;">
                         <input type="text" class="form-control form-control-lg" placeholder="front" id="front" name='front_content' required>
@@ -121,15 +121,15 @@
                 </form>
             </div>
             {% for flashcard in flashcards %}
-            <li class="list-group-item" id="flashcard-{{ flashcard.flashcard_id }}" style="display: flex; flex-direction:column;  
-                justify-content: space-between;">
+            <li class="list-group-item" id="flashcard-{{ flashcard.flashcard_id }}" style=" font-family: Montserrat; display: flex; flex-direction:column;  
+                justify-content: space-between; background-color: #141414; color: white; border-bottom: solid rgb(66, 72, 77) 1px;">
                 <div style="display: flex; flex-direction: row; justify-content: space-between;">
                     <div>
                         <h4 class="flashcard-title" id="flashcard-title-{{flashcard.flashcard_id}}" style="display: inline; text-align: center; 
                         font-size: 30px;">{{ flashcard.front_content }}</h4>
                     </div>
                     <div>
-                        <button type="button" class=" cust-btn delete-flashcard btn btn-danger d-inline-flex align-items-center" id="{{ flashcard.flashcard_id }}">
+                        <button type="button" class=" cust-btn delete-flashcard btn btn-danger d-inline-flex align-items-center" id="{{ flashcard.flashcard_id }}" style="margin-right: 15px;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16" style="margin-right: 5px;">
                                 <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
                             </svg>Delete</button>
@@ -141,21 +141,21 @@
                     </div>
                 </div>
                 <div class="collapse" id="update-{{ flashcard.flashcard_id }}" style="margin:15px;">
-                    <div class="card card-body" style="width: 100%;"> 
+                    <div class="card card-body" style="width: 100%; background-color: black;"> 
                         <div style="text-align:end;">
-                            <button type="button" class="btn-close" data-bs-toggle="collapse" data-bs-target="#update-{{ flashcard.flashcard_id }}"
+                            <button type="button" class="btn btn-light btn-close" data-bs-toggle="collapse" data-bs-target="#update-{{ flashcard.flashcard_id }}"
                             aria-expanded="false" aria-controls="update-{{ flashcard.flashcard_id }}" aria-label="Close"></button>
                         </div>
                         <div>
-                            <img id="uploaded_card_image_{{flashcard.flashcard_id}}" src="{{flashcard.flashcard_img}}" width="350" height="200"/><br>
+                            <img id="uploaded_card_image_{{flashcard.flashcard_id}}" src="{{flashcard.flashcard_img}}" width="250" height="200"/><br>
                         </div>
                         <form class="update-flashcard" id="update-flashcard-{{ flashcard.flashcard_id }}" name="{{ flashcard.flashcard_id }}">
-                            <div class="form-floating" style="margin: 10px;">
+                            <div class="form-floating" style="margin: 10px; color: black;">
                                 <input class="form-control form-control-lg" type="text" id="front_update-{{ flashcard.flashcard_id }}" 
                                 name='front_content' placeholder="{{ flashcard.front_content }}" value="{{ flashcard.front_content }}">
                                 <label for="front_update-{{ flashcard.flashcard_id }}">Front</label>
                             </div>
-                            <div class="form-floating" style="margin: 10px;">
+                            <div class="form-floating" style="margin: 10px;color: black;">
                                 <input class="form-control form-control-lg" type="text" id="back_update-{{ flashcard.flashcard_id }}" 
                                 name='back_content' placeholder="{{ flashcard.back_content }}" value="{{ flashcard.back_content }}">
                                 <label for="back_update-{{ flashcard.flashcard_id }}">Back</label>
