@@ -4,5 +4,5 @@ Studybit is a web app that allows students to review flashcard decks for languag
 
 
 <a href="https://github.com/pamelamor" align="left">
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=pamelamor&langs_count=10&title_color=ffffff&text_color=ffffff&icon_color=3382ed&bg_color=1e3a8a&hide_border=true&locale=en&custom_title=Top%20%Languages" alt="Top Languages" />
+<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=pamelamor&langs_count=10&title_color=36ab63&text_color=ffffff&icon_color=3382ed&bg_color=000000&hide_border=true&locale=en&custom_title=Top%20%Languages" alt="Top Languages" />
 </a>
