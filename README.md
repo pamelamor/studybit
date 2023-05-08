@@ -1,4 +1,4 @@
-# ![MasterHead](wiloff.png)
+# ![MasterHead](studybit.png)
 
 Studybit is a website that allows students to review flashcard decks for language studying. This application aims to help users memorize 
 content through spaced repetition techniques that strengthen a person's ability to retain information. Aside from its repetition 
