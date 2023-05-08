@@ -1,9 +1,6 @@
 # ![MasterHead](studibit.png)
 
-Studybit is a website that allows students to review flashcard decks for language studying. This application aims to help users memorize 
-content through spaced repetition techniques that strengthen a person's ability to retain information. Aside from its repetition 
-technique, Studybit gives users the ability to personalize study materials with the aim of making a free flashcard study experience 
-that is more enjoyable and intuitive.
+Studybit is a web app that allows students to review flashcard decks for language studying. This application aims to help users memorize content through spaced repetition techniques that strengthen a person's ability to retain information. Aside from its repetition technique, Studybit gives users the ability to personalize study materials with the aim of making a free flashcard study experience that is more enjoyable and intuitive.
 
 
 <a href="https://github.com/pamelamor" align="left">
